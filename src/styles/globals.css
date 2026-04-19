@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+  --netflix-black: #0F0F0F;
+  --netflix-dark-gray: #1A1A1A;
+  --netflix-gray: #808080;
+  --netflix-light-gray: #E5E5E5;
+  --sketchain-terracota: #D4A574;
+  --sketchain-gold: #F4A261;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--netflix-black);
+  color: var(--netflix-light-gray);
+  font-family: Arial, Raleway, sans-serif;
+}
