@@ -5,6 +5,7 @@ interface Props {
   title: string;
   creator: string;
   duration: number;
+  onDurationChange?: (minutes: number) => void;
 }
 
 interface VideoOverride {
@@ -36,7 +37,7 @@ function removeOverride(originalId: string) {
   localStorage.removeItem(`yt_override_${originalId}`);
 }
 
-const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duration }: Props) {
+const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duration, onDurationChange }: Props) {
   const [override, setOverride] = useState<VideoOverride | null>(() => loadOverride(youtubeId));
   const [unavailable, setUnavailable] = useState(false);
   const [showReplace, setShowReplace] = useState(false);
@@ -73,14 +74,16 @@ const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duratio
     saveOverride(youtubeId, newOverride);
     setOverride(newOverride);
     setShowReplace(false);
-  }, [youtubeId]);
+    onDurationChange?.(newOverride.duration);
+  }, [youtubeId, onDurationChange]);
 
   const handleRestore = useCallback(() => {
     removeOverride(youtubeId);
     setOverride(null);
     setUnavailable(false);
     setShowReplace(false);
-  }, [youtubeId]);
+    onDurationChange?.(duration);
+  }, [youtubeId, duration, onDurationChange]);
 
   const searchQuery = encodeURIComponent(`${title} ${creator} português`);
   const searchUrl = `https://www.youtube.com/results?search_query=${searchQuery}`;

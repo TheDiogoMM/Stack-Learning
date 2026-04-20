@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import CodeEditor from '@/components/CodeEditor';
 import VideoEmbed from '@/components/VideoEmbed';
@@ -17,6 +17,21 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
   const lesson = getLessonById(lessonId) ?? getLessonById('react-intro')!;
   const trilhaIds = getLessonsByTechnology(lesson.technology).map(l => l.id);
   const [tab, setTab] = useState<Tab>('conteudo');
+
+  // Read initial duration from localStorage override (if any video was already replaced)
+  const [displayTime, setDisplayTime] = useState<number>(() => {
+    for (const v of lesson.youtubeVideos) {
+      try {
+        const raw = localStorage.getItem(`yt_override_${v.youtubeId}`);
+        if (raw) return (JSON.parse(raw) as { duration: number }).duration ?? lesson.estimatedTime;
+      } catch { /* ignore */ }
+    }
+    return lesson.estimatedTime;
+  });
+
+  const handleDurationChange = useCallback((minutes: number) => {
+    setDisplayTime(minutes);
+  }, []);
   const { isCompleted, isBookmarked, markComplete, unmarkComplete, toggleBookmark, getProgressPercent } = useProgress();
 
   const completed = isCompleted(lesson.id);
@@ -55,7 +70,7 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
           <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '28px' }}>
             <Badge text={lesson.technology} color="var(--sketchain-terracota)" />
             <Badge text={lesson.difficulty} color={difficultyColor} />
-            <Badge text={`${lesson.estimatedTime} min`} color="var(--netflix-gray)" />
+            <Badge text={`${displayTime} min`} color="var(--netflix-gray)" />
           </div>
 
           {/* Tabs */}
@@ -109,7 +124,7 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
                   </h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                     {lesson.youtubeVideos.map(v => (
-                      <VideoEmbed key={v.youtubeId} {...v} />
+                      <VideoEmbed key={v.youtubeId} {...v} onDurationChange={handleDurationChange} />
                     ))}
                   </div>
                 </div>
@@ -182,7 +197,7 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
           {/* Info da Aula */}
           <div style={sideCard}>
             <p style={{ color: 'var(--netflix-gray)', fontSize: '0.8rem', marginBottom: '12px' }}>Informações</p>
-            <InfoRow label="Duração" value={`${lesson.estimatedTime} min`} />
+            <InfoRow label="Duração" value={`${displayTime} min`} />
             <InfoRow label="Nível" value={lesson.difficulty} />
             <InfoRow label="Pré-requisitos" value={(lesson.prerequisites ?? []).length === 0 ? 'Nenhum' : (lesson.prerequisites ?? []).join(', ')} />
           </div>
