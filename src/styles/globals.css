@@ -9,14 +9,119 @@
   --sketchain-gold: #F4A261;
 }
 
-* {
+/* ── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: var(--netflix-black);
   color: var(--netflix-light-gray);
   font-family: Arial, Raleway, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--netflix-dark-gray); }
+::-webkit-scrollbar-thumb { background: var(--netflix-gray); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--sketchain-terracota); }
+
+/* ── Animações ──────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+.fade-in    { animation: fadeIn    300ms ease-out both; }
+.slide-in   { animation: slideRight 300ms ease-out both; }
+.pulse      { animation: pulse     1.5s ease-in-out infinite; }
+
+/* ── Cards interativos ──────────────────────────────── */
+.card-hover {
+  transition: transform 300ms ease-in-out, box-shadow 300ms ease-in-out;
+}
+.card-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ── Botões ─────────────────────────────────────────── */
+button { transition: opacity 200ms, background 200ms, border-color 200ms, color 200ms; }
+button:focus-visible { outline: 2px solid var(--sketchain-terracota); outline-offset: 2px; }
+
+/* ── Links ──────────────────────────────────────────── */
+a:focus-visible { outline: 2px solid var(--sketchain-gold); outline-offset: 2px; }
+
+/* ── Inputs ─────────────────────────────────────────── */
+input:focus { outline: none; border-color: var(--sketchain-terracota) !important; }
+
+/* ── Responsividade — utilitários ───────────────────── */
+.container {
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px)  { .container { padding-left: 24px; padding-right: 24px; } }
+@media (min-width: 1024px) { .container { padding-left: 40px; padding-right: 40px; max-width: 1280px; } }
+
+/* ── Layout de 2 colunas responsivo ────────────────── */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 900px) {
+  .lesson-grid { grid-template-columns: 1fr 300px; }
+}
+
+/* ── Header responsivo ──────────────────────────────── */
+.header-nav { display: flex; gap: 24px; }
+@media (max-width: 640px) { .header-nav { gap: 12px; } }
+
+/* ── Hero responsivo ────────────────────────────────── */
+.hero-section {
+  padding: 40px 16px;
+  text-align: center;
+}
+@media (min-width: 640px)  { .hero-section { padding: 60px 40px; } }
+
+/* ── Grid tecnologias ───────────────────────────────── */
+.tech-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px)  { .tech-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .tech-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* ── Sidebar sticky só em desktop ───────────────────── */
+.sidebar-sticky { position: static; }
+@media (min-width: 900px) { .sidebar-sticky { position: sticky; top: 24px; } }
+
+/* ── Seções ─────────────────────────────────────────── */
+.section-gap      { padding: 40px 16px 0; }
+.section-gap-full { padding: 40px 16px; }
+@media (min-width: 640px) {
+  .section-gap      { padding: 40px 40px 0; }
+  .section-gap-full { padding: 40px 40px; }
 }
