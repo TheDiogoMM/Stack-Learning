@@ -37,7 +37,7 @@ export const lessons: Lesson[] = [
     tags: ['react', 'jsx', 'componentes'],
     nextLesson: { id: 'react-components', title: 'Componentes e Props' },
     youtubeVideos: [
-      { title: 'React 19 — Tudo que mudou', creator: 'Rocketseat', youtubeId: 'pMMqTIV7FEk', duration: 32 },
+      { title: 'Introdução ao ReactJS — Primeiros Passos', creator: 'Cod3r', youtubeId: 'FsT89xnwJ1M', duration: 30 },
     ],
     content: `# Introdução a React 19
 
@@ -105,7 +105,7 @@ export function Perfil({ nome, cargo }: PerfilProps) {
     tags: ['componentes', 'props', 'composição'],
     nextLesson: { id: 'react-hooks', title: 'Hooks: useState e useEffect' },
     youtubeVideos: [
-      { title: 'Componentes React na prática', creator: 'Filipe Deschamps', youtubeId: 'FstRHTGL_H8', duration: 35 },
+      { title: 'Como usar props e enviar dados para componentes no React', creator: 'Rocketseat', youtubeId: 'bSkqEC6L6is', duration: 20 },
     ],
     content: `# Componentes e Props
 
@@ -204,7 +204,7 @@ export function Badge({ texto, cor }: BadgeProps) {
     tags: ['hooks', 'useState', 'useEffect', 'estado'],
     nextLesson: { id: 'react-performance', title: 'useCallback e Performance' },
     youtubeVideos: [
-      { title: 'useState e useEffect explicados', creator: 'Rocketseat', youtubeId: 'TNhaISOUy6Q', duration: 42 },
+      { title: 'Guia Prático sobre React Hooks: useState e useEffect', creator: 'DevEmDobro', youtubeId: 'uWpKViEATt0', duration: 35 },
     ],
     content: `# Hooks: useState e useEffect
 
@@ -288,7 +288,7 @@ export function Relogio() {
     tags: ['useCallback', 'useMemo', 'performance', 'memo'],
     nextLesson: { id: 'react-context', title: 'React Context' },
     youtubeVideos: [
-      { title: 'useMemo e useCallback quando usar', creator: 'Rocketseat', youtubeId: 'dL9xpZQEBDc', duration: 28 },
+      { title: 'Guia definitivo de performance no React — useMemo e useCallback', creator: 'Rocketseat', youtubeId: 'NmU2nNehNNY', duration: 32 },
     ],
     content: `# useCallback e Performance
 
@@ -368,7 +368,7 @@ export function ListaFiltrada() {
     tags: ['context', 'estado global', 'provider'],
     nextLesson: { id: 'nextjs-app-router', title: 'App Router explicado' },
     youtubeVideos: [
-      { title: 'Context API do zero', creator: 'Mateus Müller', youtubeId: '3dQwWFBSBVc', duration: 38 },
+      { title: 'React Context API na prática com hook personalizado', creator: 'Rocketseat', youtubeId: 'g4lw8__0Mow', duration: 28 },
     ],
     content: `# React Context
 
@@ -470,7 +470,7 @@ export const useCarrinho = () => useContext(CarrinhoContext);`,
     tags: ['nextjs', 'app router', 'rotas', 'layout'],
     nextLesson: { id: 'nextjs-server-client', title: 'Server vs Client Components' },
     youtubeVideos: [
-      { title: 'Next.js 15 App Router completo', creator: 'Rocketseat', youtubeId: 'vDIMB5JFnY8', duration: 45 },
+      { title: 'Roteamento no Next.js — File-system Routing | Curso Completo', creator: 'Rocketseat', youtubeId: 'IW-3rCMV_eU', duration: 40 },
     ],
     content: `# App Router explicado
 
@@ -556,7 +556,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     tags: ['server components', 'client components', 'use client'],
     nextLesson: { id: 'nextjs-api-routes', title: 'API Routes' },
     youtubeVideos: [
-      { title: 'Server Components vs Client Components', creator: 'Cod3r', youtubeId: 'iFTcWHtHQfY', duration: 30 },
+      { title: 'Next.js: O Novo Modelo Mental — Server vs Client Components', creator: 'Rocketseat', youtubeId: 'hvaQ2ccfITo', duration: 38 },
     ],
     content: `# Server vs Client Components
 
@@ -641,7 +641,7 @@ export default function Formulario() {
     tags: ['api routes', 'route handlers', 'GET', 'POST'],
     nextLesson: { id: 'nextjs-middleware', title: 'Middleware e Auth' },
     youtubeVideos: [
-      { title: 'API Routes no Next.js 15', creator: 'Matheus Fraga', youtubeId: 'eBrND_SRFCY', duration: 35 },
+      { title: 'Novo modelo de Rotas API com Next.js — Route Handlers', creator: 'Rocketseat', youtubeId: 'Vvu509Q3jY0', duration: 30 },
     ],
     content: `# API Routes
 
@@ -729,7 +729,7 @@ export async function POST(request: Request) {
     tags: ['middleware', 'auth', 'cookies', 'redirect'],
     nextLesson: { id: 'nextjs-deploy', title: 'Deploy em Vercel' },
     youtubeVideos: [
-      { title: 'Middleware Next.js com autenticação', creator: 'Rocketseat', youtubeId: 'Anm3tc8WKVM', duration: 40 },
+      { title: 'Protegendo APIs no Next.js com Middleware e JWT', creator: 'Rocketseat', youtubeId: 'VttJPmaLMWU', duration: 30 },
     ],
     content: `# Middleware e Auth
 
@@ -824,7 +824,7 @@ export const config = {
     tags: ['deploy', 'vercel', 'CI/CD', 'variáveis de ambiente'],
     nextLesson: { id: 'ts-basics', title: 'Tipos básicos e Inferência' },
     youtubeVideos: [
-      { title: 'Deploy Next.js na Vercel do zero', creator: 'Sujeito Programador', youtubeId: 'NMBMzNtMM5E', duration: 22 },
+      { title: 'Como DEPLOYAR Next.js na VERCEL de GRAÇA em 10 Minutos', creator: 'Programação Web', youtubeId: 'ysSLwPkjzj4', duration: 25 },
     ],
     content: `# Deploy em Vercel
 
@@ -879,7 +879,7 @@ Cada Pull Request gera automaticamente uma URL de preview — ideal para revisã
     tags: ['typescript', 'tipos', 'inferência'],
     nextLesson: { id: 'ts-interfaces', title: 'Interfaces vs Types' },
     youtubeVideos: [
-      { title: 'TypeScript do zero em 1 hora', creator: 'Rocketseat', youtubeId: 'sTX0UEplF54', duration: 60 },
+      { title: 'TypeScript Tutorial: Aprenda do ZERO passo a passo', creator: 'DevClub', youtubeId: 'WvPlUwj2n5k', duration: 55 },
     ],
     content: `# Tipos básicos e Inferência
 
@@ -955,7 +955,7 @@ let status: 'ativo' | 'inativo' = 'ativo';
     tags: ['interface', 'type', 'typescript'],
     nextLesson: { id: 'ts-generics', title: 'Generics' },
     youtubeVideos: [
-      { title: 'Interface vs Type no TypeScript', creator: 'Mateus Müller', youtubeId: 'vF24UhM-eos', duration: 25 },
+      { title: 'TypeScript Completo: Interfaces, Types e Generics — Aula Prática', creator: 'DevSuperior', youtubeId: 'XwtKuAV_fHY', duration: 40 },
     ],
     content: `# Interfaces vs Types
 
@@ -1041,7 +1041,7 @@ type PostComAutor = Omit<Post, 'autorId'> & {
     tags: ['generics', 'typescript', 'reutilização'],
     nextLesson: { id: 'ts-advanced', title: 'Types Avançados' },
     youtubeVideos: [
-      { title: 'Generics TypeScript explicado', creator: 'Rocketseat', youtubeId: 'nViEqpgwxHE', duration: 35 },
+      { title: 'Aulão de TypeScript — Inferência, Interfaces, Tipos e Generics', creator: 'Rocketseat', youtubeId: 'EnneL962QAs', duration: 50 },
     ],
     content: `# Generics
 
@@ -1120,7 +1120,7 @@ const resultado = paginar([1, 2, 3, 4, 5], 2);
     tags: ['utility types', 'conditional types', 'mapped types'],
     nextLesson: { id: 'tw-utility', title: 'Utility-first CSS' },
     youtubeVideos: [
-      { title: 'Types avançados TypeScript', creator: 'Rodrigo Branas', youtubeId: 'PkXWFAFuM2E', duration: 48 },
+      { title: '3 Conceitos Avançados do TypeScript que Você Deve Saber', creator: 'DevSuperior', youtubeId: 'uSRlK8heDWU', duration: 25 },
     ],
     content: `# Types Avançados
 
@@ -1204,7 +1204,7 @@ type ConfigOpcional = DeepPartial<Config>;
     tags: ['tailwind', 'utility-first', 'classes'],
     nextLesson: { id: 'tw-responsive', title: 'Responsividade' },
     youtubeVideos: [
-      { title: 'Tailwind CSS 4 do zero', creator: 'Rocketseat', youtubeId: 'bxmDnn7lrnk', duration: 38 },
+      { title: 'Tailwind CSS do ZERO ao AVANÇADO', creator: 'Hora de Codar', youtubeId: 'SUavcwCCLN8', duration: 45 },
     ],
     content: `# Utility-first CSS
 
@@ -1294,7 +1294,7 @@ export function Exemplo() {
     tags: ['responsivo', 'breakpoints', 'mobile-first'],
     nextLesson: { id: 'tw-darkmode', title: 'Dark Mode' },
     youtubeVideos: [
-      { title: 'Tailwind CSS Responsivo', creator: 'Hora de Codar', youtubeId: 'pfaSUYaSgRo', duration: 30 },
+      { title: 'Tailwind CSS — Responsividade na Prática', creator: 'Hora de Codar', youtubeId: 'XtZI-EDwD7I', duration: 25 },
     ],
     content: `# Responsividade com Tailwind
 
@@ -1376,7 +1376,7 @@ export function Grid() {
     tags: ['dark mode', 'tema', 'variáveis CSS'],
     nextLesson: { id: 'shadcn-basics', title: 'Setup e componentes básicos' },
     youtubeVideos: [
-      { title: 'Dark Mode com Tailwind CSS', creator: 'Lucas Nhimi', youtubeId: 'oMOe_32M6ss', duration: 22 },
+      { title: 'Landing Page Responsiva com Dark Mode e Light Mode — Tailwind', creator: 'Matheus Battisti', youtubeId: '2ZJ_pVsVS3Q', duration: 35 },
     ],
     content: `# Dark Mode com Tailwind
 
@@ -1460,7 +1460,7 @@ export function Card({ titulo, descricao }: { titulo: string; descricao: string 
     tags: ['shadcn', 'button', 'card', 'input'],
     nextLesson: { id: 'shadcn-forms', title: 'Forms com React Hook Form' },
     youtubeVideos: [
-      { title: 'shadcn/ui do zero', creator: 'Rocketseat', youtubeId: '7MKEOfSP2s4', duration: 40 },
+      { title: 'Criando UI no React na velocidade da luz com shadcn/ui', creator: 'Rocketseat', youtubeId: 'er_QPBldsXE', duration: 28 },
     ],
     content: `# Setup e componentes básicos do shadcn/ui
 
@@ -1573,7 +1573,7 @@ export function PerfilCard({ nome, cargo, email, telefone }: PerfilCardProps) {
     tags: ['forms', 'react-hook-form', 'zod', 'validação'],
     nextLesson: { id: 'shadcn-tables', title: 'Tables e Dropdowns' },
     youtubeVideos: [
-      { title: 'Formulários com shadcn e React Hook Form', creator: 'Rocketseat', youtubeId: 'cc_xmawJ8Kg', duration: 45 },
+      { title: 'Form dinâmico com validações usando React Hook Form e Zod', creator: 'Rocketseat', youtubeId: 'H2_yqSFCy4g', duration: 35 },
     ],
     content: `# Forms com React Hook Form + Zod
 
@@ -1647,7 +1647,7 @@ export function MeuForm() {
     tags: ['table', 'dropdown', 'tanstack', 'shadcn'],
     nextLesson: { id: 'sb-setup', title: 'Setup PostgreSQL' },
     youtubeVideos: [
-      { title: 'Data Table com shadcn/ui', creator: 'Rocketseat', youtubeId: 'ipDdBHuuR6k', duration: 50 },
+      { title: 'React Data Table com Next.js, Shadcn/ui e Tanstack Table', creator: 'Filipe Deschamps', youtubeId: 'NJ_X8rbH600', duration: 40 },
     ],
     content: `# Tables e Dropdowns
 
@@ -1712,7 +1712,7 @@ Cada linha da tabela pode ter um \`DropdownMenu\` na última coluna para ações
     tags: ['supabase', 'postgresql', 'banco de dados'],
     nextLesson: { id: 'sb-auth', title: 'Autenticação' },
     youtubeVideos: [
-      { title: 'Supabase do zero — banco de dados', creator: 'Sujeito Programador', youtubeId: '5Bms87SbOSo', duration: 35 },
+      { title: 'Curso Supabase Gratuito para Iniciantes', creator: 'Hora de Codar', youtubeId: 'OztHXOnQLXc', duration: 50 },
     ],
     content: `# Setup PostgreSQL com Supabase
 
@@ -1774,7 +1774,7 @@ src/
     tags: ['auth', 'supabase', 'email', 'OAuth'],
     nextLesson: { id: 'sb-crud', title: 'CRUD básico' },
     youtubeVideos: [
-      { title: 'Autenticação com Supabase', creator: 'Rocketseat', youtubeId: 'dU7aje7XWE4', duration: 42 },
+      { title: 'Autenticação e Autorização no Supabase na Prática', creator: 'DevSuperior', youtubeId: 'G58nA0a41M4', duration: 35 },
     ],
     content: `# Autenticação com Supabase
 
@@ -1837,7 +1837,7 @@ Ative os provedores em **Authentication → Providers** no dashboard.
     tags: ['crud', 'select', 'insert', 'update', 'delete'],
     nextLesson: { id: 'sb-relations', title: 'Relacionamentos' },
     youtubeVideos: [
-      { title: 'CRUD completo com Supabase', creator: 'Dev Soutinho', youtubeId: 'L57wOPSbATk', duration: 38 },
+      { title: 'Banco de Dados Relacional e SQL com Supabase — Masterclass', creator: 'Formação DEV', youtubeId: 'wOcbetwEJD4', duration: 60 },
     ],
     content: `# CRUD básico com Supabase
 
@@ -1955,7 +1955,7 @@ export async function deletarTarefa(id: string) {
     tags: ['join', 'foreign key', 'relacionamentos', 'supabase'],
     nextLesson: { id: 'sb-rls', title: 'Row Level Security' },
     youtubeVideos: [
-      { title: 'Relacionamentos no Supabase', creator: 'Rocketseat', youtubeId: 'rGvpHLrubsE', duration: 35 },
+      { title: 'PostgreSQL + Tabelas e Relacionamentos com Deploy no Supabase', creator: 'Formação DEV', youtubeId: 'Zqfvukc420I', duration: 40 },
     ],
     content: `# Relacionamentos no Supabase
 
@@ -2026,7 +2026,7 @@ const { data } = await supabase
     tags: ['RLS', 'segurança', 'políticas', 'supabase'],
     nextLesson: { id: 'sk-arquitetura', title: 'Arquitetura da plataforma' },
     youtubeVideos: [
-      { title: 'Row Level Security no Supabase', creator: 'Rocketseat', youtubeId: 'Ow_4pUXTep4', duration: 40 },
+      { title: 'Como Controlar Acesso de Usuários com RLS no Supabase', creator: 'DevSuperior', youtubeId: 'iFzkI4whgTI', duration: 30 },
     ],
     content: `# Row Level Security (RLS)
 
@@ -2092,7 +2092,7 @@ Use a chave \`service_role\` (nunca no frontend!) para bypass de RLS em testes n
     tags: ['arquitetura', 'sketchain', 'sistema'],
     nextLesson: { id: 'sk-setup', title: 'Setup inicial' },
     youtubeVideos: [
-      { title: 'Arquitetura de SaaS com Next.js', creator: 'Rocketseat', youtubeId: 'yzPqLDMC8nE', duration: 50 },
+      { title: 'Full Stack SaaS com Next.js, Supabase e Shadcn/ui', creator: 'Rocketseat', youtubeId: 'KHKpKR1NuaU', duration: 45 },
     ],
     content: `# Arquitetura da Plataforma Sketchain
 
@@ -2153,7 +2153,7 @@ notificacoes (id, user_id, mensagem, lida, criado_em)
     tags: ['setup', 'next.js', 'supabase', 'estrutura'],
     nextLesson: { id: 'sk-clientes', title: 'CRUD Clientes' },
     youtubeVideos: [
-      { title: 'Setup Next.js com Supabase', creator: 'Rocketseat', youtubeId: 'XPrBEBtJuKY', duration: 30 },
+      { title: 'Dominando Next.js do ZERO', creator: 'Matheus Battisti', youtubeId: 'e6FigV2fLC8', duration: 55 },
     ],
     content: `# Setup Inicial do Sketchain
 
@@ -2208,7 +2208,7 @@ Execute o SQL da aula de Arquitetura no **SQL Editor** do Supabase, habilite RLS
     tags: ['crud', 'clientes', 'formulário', 'tabela'],
     nextLesson: { id: 'sk-projetos', title: 'CRUD Projetos' },
     youtubeVideos: [
-      { title: 'CRUD completo Next.js + Supabase', creator: 'Cod3r', youtubeId: 'Nb-cFNjcLRM', duration: 55 },
+      { title: 'Supabase: Como Criar e Relacionar Tabelas Passo a Passo', creator: 'DevSuperior', youtubeId: 'tl0TkyfSHNo', duration: 30 },
     ],
     content: `# CRUD de Clientes
 
@@ -2276,7 +2276,7 @@ Use o componente \`Dialog\` do shadcn para confirmar antes de deletar.
     tags: ['projetos', 'crud', 'status', 'relacionamento'],
     nextLesson: { id: 'sk-status', title: 'Status Tracking' },
     youtubeVideos: [
-      { title: 'Gestão de projetos com Supabase', creator: 'Dev Soutinho', youtubeId: 'hJH5TrMCXX8', duration: 48 },
+      { title: 'CRUD com Supabase na Prática', creator: 'Rocketseat', youtubeId: 'hmtMQEl6azM', duration: 40 },
     ],
     content: `# CRUD de Projetos
 
@@ -2337,7 +2337,7 @@ const { data } = await supabase
     tags: ['status', 'kanban', 'workflow', 'atualização'],
     nextLesson: { id: 'sk-portal', title: 'Portal do Cliente' },
     youtubeVideos: [
-      { title: 'Kanban com Next.js e Supabase', creator: 'Rocketseat', youtubeId: 'n2cHBpEJXo4', duration: 45 },
+      { title: 'Refatorando app React com novos componentes shadcn/ui', creator: 'Rocketseat', youtubeId: 'xo38Vy5QAF0', duration: 20 },
     ],
     content: `# Status Tracking
 
@@ -2399,7 +2399,7 @@ Registre cada mudança de status em uma tabela \`status_historico\` para auditor
     tags: ['portal', 'cliente', 'RLS', 'acesso restrito'],
     nextLesson: { id: 'sk-notificacoes', title: 'Notificações' },
     youtubeVideos: [
-      { title: 'Portal multi-tenant com Supabase', creator: 'Rocketseat', youtubeId: 'xRnEfTz-O-4', duration: 52 },
+      { title: 'Autenticação Server Side com Next.js e Supabase', creator: 'Rocketseat', youtubeId: 'MEj2rCiHdYg', duration: 35 },
     ],
     content: `# Portal do Cliente
 
@@ -2467,7 +2467,7 @@ function TimelineStatus({ status }: { status: string }) {
     tags: ['notificações', 'realtime', 'supabase', 'alertas'],
     nextLesson: { id: 'sk-deploy', title: 'Deploy' },
     youtubeVideos: [
-      { title: 'Realtime com Supabase', creator: 'Rocketseat', youtubeId: 'VRmtB3KmB5w', duration: 38 },
+      { title: 'Notificação em Tempo Real com Supabase Realtime', creator: 'DevSuperior', youtubeId: 'wJf_O7LEmjQ', duration: 30 },
     ],
     content: `# Notificações em Tempo Real
 
@@ -2531,7 +2531,7 @@ useEffect(() => {
     prerequisites: ['sk-notificacoes'],
     tags: ['deploy', 'vercel', 'produção', 'CI/CD'],
     youtubeVideos: [
-      { title: 'Deploy Next.js + Supabase em produção', creator: 'Sujeito Programador', youtubeId: 'wDc7QKlJHzQ', duration: 28 },
+      { title: 'Deploy 100% GRÁTIS com Vercel + Next.js', creator: 'Programação Web', youtubeId: '8CMW3URmXUo', duration: 25 },
     ],
     content: `# Deploy do Sketchain
 
