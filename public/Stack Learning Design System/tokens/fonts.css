@@ -1,0 +1,6 @@
+/* Stack Learning — Webfonts
+   Brand UI face: Raleway (with Arial fallback, matching the source app's
+   `font-family: Arial, Raleway, sans-serif`). Code face: Fira Code.
+   NOTE: loaded from Google Fonts CDN — see README "Font substitution" caveat. */
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');

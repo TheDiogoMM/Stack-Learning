@@ -1,0 +1,265 @@
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f0f0f; font-family: 'Raleway', Arial, sans-serif; color: #e5e5e5; }
+
+  .q-title { font-size: 17px; font-weight: 700; color: #D4A574; margin-bottom: 6px; }
+  .q-sub { font-size: 13px; color: #808080; margin-bottom: 24px; }
+
+  .cards { display: flex; flex-direction: column; gap: 20px; }
+
+  .card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms;
+  }
+  .card:hover { transform: scale(1.01); box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+  .card.selected { border-color: #D4A574; box-shadow: 0 0 0 2px rgba(212,165,116,0.25); }
+
+  .card-label {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 18px;
+    background: #111;
+    border-bottom: 1px solid #2a2a2a;
+    font-size: 13px; font-weight: 700; color: #D4A574;
+  }
+  .letter-badge {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #D4A574; color: #0f0f0f;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .card-desc { padding: 10px 18px 14px; font-size: 12px; color: #808080; line-height: 1.5; }
+
+  /* ── MOCKUP SHARED ── */
+  .mock {
+    padding: 18px 20px;
+    background: #0f0f0f;
+    font-size: 12px;
+  }
+
+  /* hero strip */
+  .hero-strip {
+    background: linear-gradient(135deg, #D4A574, #F4A261);
+    padding: 18px 20px;
+    text-align: center;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+  .hero-strip h1 { font-size: 18px; font-weight: 800; color: #fff; }
+  .hero-strip p { font-size: 11px; color: rgba(255,255,255,0.85); margin-top: 3px; }
+
+  .section-label { font-size: 11px; font-weight: 700; color: #e5e5e5; margin-bottom: 8px; }
+  .section-sub { font-size: 10px; color: #808080; margin-bottom: 10px; }
+
+  /* carousel row */
+  .row { display: flex; gap: 8px; overflow: hidden; }
+  .mini-card {
+    background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px;
+    padding: 10px; min-width: 110px; flex-shrink: 0;
+  }
+  .mini-card-num { font-size: 16px; font-weight: 800; color: #D4A574; }
+  .mini-card-title { font-size: 9px; color: #e5e5e5; margin-top: 4px; line-height: 1.3; }
+  .mini-bar { height: 2px; background: #2a2a2a; border-radius: 1px; margin-top: 8px; }
+  .mini-bar-fill { height: 2px; border-radius: 1px; }
+
+  /* tech grid */
+  .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tech-card {
+    background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 6px;
+    padding: 8px; border-left-width: 3px;
+  }
+  .tech-name { font-size: 9px; font-weight: 700; color: #e5e5e5; }
+  .tech-meta { font-size: 8px; color: #808080; margin-top: 2px; }
+
+  /* AI section variants */
+  .ai-hero {
+    background: linear-gradient(135deg, #1a0a2e, #0d1b40);
+    border: 1px solid #2d1b69;
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-hero::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(139,92,246,0.3), transparent);
+    border-radius: 50%;
+  }
+  .ai-hero-label { font-size: 9px; font-weight: 700; color: #8B5CF6; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .ai-hero-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 3px; }
+  .ai-hero-sub { font-size: 10px; color: #9ca3af; }
+  .ai-hero-pills { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+  .pill {
+    font-size: 8px; font-weight: 600;
+    padding: 2px 7px; border-radius: 999px;
+    border: 1px solid;
+  }
+  .pill-violet { color: #8B5CF6; border-color: rgba(139,92,246,0.4); background: rgba(139,92,246,0.1); }
+  .pill-blue { color: #60a5fa; border-color: rgba(96,165,250,0.4); background: rgba(96,165,250,0.1); }
+  .pill-green { color: #34d399; border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.1); }
+  .pill-orange { color: #fb923c; border-color: rgba(251,146,60,0.4); background: rgba(251,146,60,0.1); }
+
+  /* pillar grid */
+  .pillar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+  .pillar-card {
+    border-radius: 6px; padding: 8px;
+    border: 1px solid; font-size: 9px; font-weight: 700;
+  }
+  .p1 { background: rgba(139,92,246,0.08); border-color: rgba(139,92,246,0.3); color: #8B5CF6; }
+  .p2 { background: rgba(96,165,250,0.08); border-color: rgba(96,165,250,0.3); color: #60a5fa; }
+  .p3 { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.3); color: #34d399; }
+  .p4 { background: rgba(251,146,60,0.08); border-color: rgba(251,146,60,0.3); color: #fb923c; }
+  .pillar-name { font-size: 9px; font-weight: 700; }
+  .pillar-sub { font-size: 8px; opacity: 0.7; margin-top: 2px; font-weight: 400; }
+  .pillar-bar { height: 2px; border-radius: 1px; margin-top: 6px; background: rgba(255,255,255,0.1); }
+
+  /* tab nav */
+  .tab-nav { display: flex; gap: 0; border-bottom: 1px solid #2a2a2a; margin-bottom: 10px; }
+  .tab {
+    padding: 6px 12px; font-size: 10px; font-weight: 600;
+    color: #808080; cursor: pointer; border-bottom: 2px solid transparent;
+    transition: color 200ms, border-color 200ms;
+  }
+  .tab.active { color: #D4A574; border-bottom-color: #D4A574; }
+
+  /* badge */
+  .badge-new {
+    display: inline-block;
+    background: rgba(139,92,246,0.15); color: #8B5CF6;
+    border: 1px solid rgba(139,92,246,0.4);
+    border-radius: 999px; font-size: 8px; font-weight: 700;
+    padding: 1px 6px; margin-left: 6px; vertical-align: middle;
+  }
+</style>
+
+<p class="q-title">Onde a trilha de Engenharia de IA aparece na Home?</p>
+<p class="q-sub">Escolha a abordagem de apresentação que faz mais sentido para a plataforma.</p>
+
+<div class="cards">
+
+  <!-- OPÇÃO A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="letter-badge">A</div>
+      Seção de destaque própria — acima das trilhas existentes
+      <span style="margin-left: auto; font-size: 11px; font-weight: 400; color: #808080;">Máximo impacto</span>
+    </div>
+    <div class="mock">
+      <div class="hero-strip"><h1>Aprenda o Stack Sketchain</h1><p>Do Zero ao Sênior em 8–10 semanas</p></div>
+
+      <!-- AI spotlight -->
+      <div class="ai-hero" style="margin-bottom: 14px;">
+        <div class="ai-hero-label">✦ Novo · Engenharia de IA</div>
+        <div class="ai-hero-title">Torne-se um Engenheiro de IA</div>
+        <div class="ai-hero-sub">4 pilares · ~30 aulas · Avaliação diagnóstica incluída</div>
+        <div class="ai-hero-pills">
+          <span class="pill pill-violet">Fundamentos</span>
+          <span class="pill pill-blue">Integração</span>
+          <span class="pill pill-green">Autonomia</span>
+          <span class="pill pill-orange">Produção</span>
+        </div>
+      </div>
+
+      <div class="section-label">Trilha Sequencial</div>
+      <div class="row" style="margin-bottom: 14px;">
+        <div class="mini-card"><div class="mini-card-num">01</div><div class="mini-card-title">Introdução ao React 19</div><div class="mini-bar"><div class="mini-bar-fill" style="width:100%;background:#D4A574;"></div></div></div>
+        <div class="mini-card"><div class="mini-card-num">02</div><div class="mini-card-title">Componentes e Props</div><div class="mini-bar"></div></div>
+        <div class="mini-card" style="opacity:.5;"><div class="mini-card-num">03</div><div class="mini-card-title">Hooks: useState</div><div class="mini-bar"></div></div>
+      </div>
+
+      <div class="section-label">Por Tecnologia</div>
+      <div class="tech-grid">
+        <div class="tech-card" style="border-left-color:#61DAFB;"><div class="tech-name">React 19</div><div class="tech-meta">5 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#fff;"><div class="tech-name">Next.js 15.5</div><div class="tech-meta">5 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#3178C6;"><div class="tech-name">TypeScript</div><div class="tech-meta">4 aulas</div></div>
+      </div>
+    </div>
+    <div class="card-desc">A trilha de IA ganha um banner de destaque logo após o hero, antes de qualquer outra seção. Visual distinto (fundo dark-violet, pills coloridas). Comunica que é algo especial/novo na plataforma.</div>
+  </div>
+
+  <!-- OPÇÃO B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="letter-badge">B</div>
+      Integrada na grade "Por Tecnologia" com badge NOVO
+      <span style="margin-left: auto; font-size: 11px; font-weight: 400; color: #808080;">Coerente com o layout atual</span>
+    </div>
+    <div class="mock">
+      <div class="hero-strip"><h1>Aprenda o Stack Sketchain</h1><p>Do Zero ao Sênior em 8–10 semanas</p></div>
+
+      <div class="section-label" style="margin-bottom:10px;">Trilha Sequencial</div>
+      <div class="row" style="margin-bottom: 14px;">
+        <div class="mini-card"><div class="mini-card-num">01</div><div class="mini-card-title">Introdução ao React 19</div><div class="mini-bar"><div class="mini-bar-fill" style="width:100%;background:#D4A574;"></div></div></div>
+        <div class="mini-card"><div class="mini-card-num">02</div><div class="mini-card-title">Componentes e Props</div><div class="mini-bar"></div></div>
+      </div>
+
+      <div class="section-label" style="margin-bottom:4px;">Por Tecnologia <span class="badge-new">IA NOVA</span></div>
+      <div style="display:grid; grid-template-columns: repeat(3,1fr); gap:6px; margin-bottom:6px;">
+        <div class="tech-card" style="border-left-color:#61DAFB;"><div class="tech-name">React 19</div><div class="tech-meta">5 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#fff;"><div class="tech-name">Next.js 15.5</div><div class="tech-meta">5 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#3178C6;"><div class="tech-name">TypeScript</div><div class="tech-meta">4 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#3ECF8E;"><div class="tech-name">Supabase</div><div class="tech-meta">5 aulas</div></div>
+        <div class="tech-card" style="border-left-color:#D4A574;"><div class="tech-name">Sketchain</div><div class="tech-meta">8 aulas</div></div>
+        <!-- AI card -->
+        <div class="tech-card" style="border-left-color:#8B5CF6; background: rgba(139,92,246,0.06); border-color: rgba(139,92,246,0.35);">
+          <div class="tech-name" style="color:#8B5CF6;">Engenharia de IA</div>
+          <div class="tech-meta" style="color:#6d40c4;">30 aulas · 4 pilares</div>
+          <div class="mini-bar" style="margin-top:6px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-desc">A trilha de IA entra como mais um card na grade de tecnologias, com cor roxa/violet para se diferenciar. Menos impacto visual mas mantém consistência perfeita com o design atual.</div>
+  </div>
+
+  <!-- OPÇÃO C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-label">
+      <div class="letter-badge">C</div>
+      Aba separada "IA" no header + seção própria na Home
+      <span style="margin-left: auto; font-size: 11px; font-weight: 400; color: #808080;">Navegação independente</span>
+    </div>
+    <div class="mock">
+      <!-- header with tabs -->
+      <div style="background:#111; border-bottom:1px solid #2a2a2a; padding: 8px 16px; display:flex; align-items:center; gap:16px; margin-bottom: 14px; border-radius:6px;">
+        <span style="font-size:12px; font-weight:800; color:#D4A574;">Stack Learning</span>
+        <div style="display:flex; gap:0; margin-left: auto;">
+          <div class="tab active">Stack</div>
+          <div class="tab">IA <span class="badge-new">novo</span></div>
+          <div class="tab" style="color:#808080;">Perfil</div>
+        </div>
+      </div>
+
+      <div class="hero-strip"><h1>Aprenda o Stack Sketchain</h1><p>Do Zero ao Sênior em 8–10 semanas</p></div>
+
+      <div class="section-label" style="margin-top:10px; margin-bottom:8px;">Trilha Sequencial</div>
+      <div class="row">
+        <div class="mini-card"><div class="mini-card-num">01</div><div class="mini-card-title">Introdução ao React 19</div><div class="mini-bar"><div class="mini-bar-fill" style="width:100%;background:#D4A574;"></div></div></div>
+        <div class="mini-card"><div class="mini-card-num">02</div><div class="mini-card-title">Componentes e Props</div><div class="mini-bar"></div></div>
+      </div>
+
+      <!-- preview of IA tab -->
+      <div style="margin-top:14px; border-top: 1px dashed #2a2a2a; padding-top: 12px;">
+        <div style="font-size:10px; color:#808080; margin-bottom:8px; font-style:italic;">↓ Aba "IA" (página separada)</div>
+        <div class="ai-hero" style="margin-bottom:8px;">
+          <div class="ai-hero-label">Engenharia de IA Aplicada</div>
+          <div class="ai-hero-title" style="font-size:12px;">4 pilares · 30 aulas · Diagnóstico</div>
+        </div>
+        <div class="pillar-grid">
+          <div class="pillar-card p1"><div class="pillar-name">Fundamentos</div><div class="pillar-sub">LLMs · Transformers · Embeddings</div><div class="pillar-bar"></div></div>
+          <div class="pillar-card p2"><div class="pillar-name">Integração</div><div class="pillar-sub">APIs · RAGs · MCPs</div><div class="pillar-bar"></div></div>
+          <div class="pillar-card p3"><div class="pillar-name">Autonomia</div><div class="pillar-sub">Agentes · Multiagentes</div><div class="pillar-bar"></div></div>
+          <div class="pillar-card p4"><div class="pillar-name">Produção</div><div class="pillar-sub">DevOps · Segurança · Fine-tuning</div><div class="pillar-bar"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-desc">A trilha de IA ganha uma aba própria no Header ("Stack" | "IA"). A Home original não muda. A aba IA tem página dedicada com hero, pilares e avaliação diagnóstica. Separação clara entre os dois produtos.</div>
+  </div>
+
+</div>

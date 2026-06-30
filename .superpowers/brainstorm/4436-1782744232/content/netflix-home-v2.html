@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stack Learning — Home (Netflix-style)</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0f0f0f; font-family: 'Raleway', Arial, sans-serif; color: #e5e5e5; font-size: 14px; }
+
+/* ── HEADER ── */
+.header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(15,15,15,0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #2a2a2a;
+  padding: 0 40px;
+  display: flex; align-items: center; gap: 32px; height: 56px;
+}
+.logo { font-size: 17px; font-weight: 800; color: #D4A574; letter-spacing: -0.5px; }
+.logo span { color: #e5e5e5; font-weight: 400; }
+.nav { display: flex; gap: 4px; }
+.nav-item {
+  padding: 6px 14px; border-radius: 6px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  color: #808080; transition: color 200ms, background 200ms;
+}
+.nav-item.active { color: #e5e5e5; background: #1a1a1a; }
+.nav-item:hover { color: #e5e5e5; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: linear-gradient(135deg, #D4A574, #F4A261);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #0f0f0f; cursor: pointer;
+}
+.search-icon { color: #808080; cursor: pointer; font-size: 16px; }
+
+/* ── HERO FEATURE ── */
+.hero-feature {
+  position: relative; height: 480px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #0f0f0f 100%);
+}
+.hero-bg-accent {
+  position: absolute; top: -60px; right: -40px;
+  width: 400px; height: 400px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%);
+}
+.hero-bg-accent2 {
+  position: absolute; bottom: 20px; left: 10%;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,165,116,0.08) 0%, transparent 70%);
+}
+.hero-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 200px;
+  background: linear-gradient(to top, #0f0f0f, transparent);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 0 40px 48px;
+  max-width: 600px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.35);
+  color: #a78bfa; border-radius: 999px;
+  padding: 4px 12px; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.5px; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #8B5CF6; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-title { font-size: 46px; font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; color: #fff; margin-bottom: 12px; }
+.hero-title span { color: #a78bfa; }
+.hero-desc { font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 24px; }
+.hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.pill {
+  padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 700; border: 1px solid;
+}
+.pill-v { color: #a78bfa; border-color: rgba(167,139,250,0.4); background: rgba(139,92,246,0.1); }
+.pill-b { color: #60a5fa; border-color: rgba(96,165,250,0.4); background: rgba(96,165,250,0.1); }
+.pill-g { color: #34d399; border-color: rgba(52,211,153,0.4); background: rgba(52,211,153,0.1); }
+.pill-o { color: #fb923c; border-color: rgba(251,146,60,0.4); background: rgba(251,146,60,0.1); }
+.hero-actions { display: flex; gap: 12px; }
+.btn-primary {
+  padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 700;
+  background: #8B5CF6; color: #fff; border: none; cursor: pointer;
+  font-family: 'Raleway', Arial, sans-serif;
+  transition: opacity 200ms;
+}
+.btn-primary:hover { opacity: 0.9; }
+.btn-outline {
+  padding: 12px 24px; border-radius: 6px; font-size: 14px; font-weight: 700;
+  background: transparent; color: #e5e5e5; border: 1px solid #808080; cursor: pointer;
+  font-family: 'Raleway', Arial, sans-serif;
+  transition: border-color 200ms, color 200ms;
+}
+.btn-outline:hover { border-color: #e5e5e5; }
+.hero-meta {
+  position: absolute; right: 40px; bottom: 48px; z-index: 2;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+}
+.hero-stat { text-align: right; }
+.hero-stat-num { font-size: 32px; font-weight: 800; color: #a78bfa; line-height: 1; }
+.hero-stat-label { font-size: 11px; color: #808080; }
+
+/* ── SECTIONS ── */
+.section { padding: 0 40px; margin-bottom: 48px; }
+.section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.section-title { font-size: 20px; font-weight: 700; color: #e5e5e5; }
+.section-link { font-size: 12px; color: #D4A574; cursor: pointer; margin-left: auto; font-weight: 600; }
+.section-link:hover { color: #F4A261; }
+
+/* ── TRACK CARDS (big cards like Netflix shows) ── */
+.track-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.track-card {
+  position: relative; border-radius: 12px; overflow: hidden;
+  cursor: pointer; height: 220px;
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  border: 1px solid #2a2a2a;
+}
+.track-card:hover { transform: scale(1.02); box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+.track-card-bg { position: absolute; inset: 0; }
+.track-card-fade { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 100%); }
+.track-card-body { position: absolute; inset: 0; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; }
+.track-eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+.track-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 6px; line-height: 1.2; }
+.track-desc { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 12px; line-height: 1.4; }
+.track-footer { display: flex; align-items: center; gap: 12px; }
+.track-progress-wrap { flex: 1; }
+.track-progress-bar { height: 3px; background: rgba(255,255,255,0.2); border-radius: 2px; }
+.track-progress-fill { height: 3px; border-radius: 2px; }
+.track-meta-text { font-size: 11px; color: rgba(255,255,255,0.6); }
+.track-play {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; border: 2px solid rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.8); flex-shrink: 0;
+  transition: background 200ms, border-color 200ms;
+}
+.track-card:hover .track-play { background: rgba(255,255,255,0.15); border-color: #fff; }
+
+/* Stack track */
+.track-stack { background: linear-gradient(135deg, #1a0f00, #2a1800); }
+/* AI track */
+.track-ai { background: linear-gradient(135deg, #0a0015, #1a0d30); }
+.track-ai-glow {
+  position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,92,246,0.25), transparent 70%);
+}
+
+/* ── CONTINUE WATCHING ── */
+.lesson-row { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+.lesson-row::-webkit-scrollbar { display: none; }
+.lesson-card {
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px;
+  padding: 14px; min-width: 200px; flex-shrink: 0; cursor: pointer;
+  transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms;
+}
+.lesson-card:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.4); border-color: #3a3a3a; }
+.lesson-num { font-size: 24px; font-weight: 800; color: #D4A574; line-height: 1; }
+.lesson-num.ai { color: #8B5CF6; }
+.lesson-title { font-size: 12px; color: #e5e5e5; margin: 8px 0 10px; line-height: 1.4; min-height: 32px; }
+.lesson-bar { height: 3px; background: #2a2a2a; border-radius: 2px; }
+.lesson-bar-fill { height: 3px; border-radius: 2px; }
+.lesson-tag {
+  display: inline-block; margin-top: 8px;
+  font-size: 9px; font-weight: 700; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 4px;
+}
+
+/* ── KNOWLEDGE SCORE ── */
+.knowledge-bar-wrap {
+  background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; padding: 24px;
+  display: flex; gap: 32px; align-items: center;
+}
+.knowledge-score {
+  width: 90px; height: 90px; border-radius: 50%; flex-shrink: 0;
+  background: conic-gradient(#D4A574 0% 62%, #2a2a2a 62% 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.knowledge-score-inner {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: #1a1a1a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.knowledge-num { font-size: 20px; font-weight: 800; color: #D4A574; }
+.knowledge-sub { font-size: 9px; color: #808080; }
+.knowledge-details { flex: 1; }
+.knowledge-title { font-size: 15px; font-weight: 700; color: #e5e5e5; margin-bottom: 4px; }
+.knowledge-desc { font-size: 12px; color: #808080; margin-bottom: 14px; line-height: 1.5; }
+.knowledge-tracks { display: flex; gap: 16px; }
+.k-track { }
+.k-track-label { font-size: 10px; color: #808080; margin-bottom: 4px; }
+.k-track-bar { height: 4px; background: #2a2a2a; border-radius: 2px; width: 120px; }
+.k-track-fill { height: 4px; border-radius: 2px; }
+.k-track-pct { font-size: 11px; font-weight: 700; margin-top: 3px; }
+
+/* ── PILLAR STRIP ── */
+.pillar-strip { display: flex; gap: 12px; }
+.pillar-card {
+  flex: 1; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px;
+  padding: 14px; cursor: pointer;
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+.pillar-card:hover { transform: scale(1.02); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+.pillar-num { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+.pillar-name { font-size: 14px; font-weight: 700; color: #e5e5e5; margin-bottom: 4px; }
+.pillar-desc { font-size: 11px; color: #808080; margin-bottom: 10px; line-height: 1.4; }
+.pillar-prog { font-size: 10px; color: #808080; margin-bottom: 5px; }
+.mini-prog-bar { height: 3px; background: #2a2a2a; border-radius: 2px; }
+.mini-prog-fill { height: 3px; border-radius: 2px; }
+.lock-badge {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 6px;
+  font-size: 9px; font-weight: 700; color: #808080;
+}
+
+/* ── DIAGNOSTIC CTA ── */
+.diag-cta {
+  background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(96,165,250,0.05));
+  border: 1px solid rgba(139,92,246,0.3); border-radius: 10px;
+  padding: 20px 24px; display: flex; align-items: center; gap: 20px;
+}
+.diag-icon {
+  width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+  background: rgba(139,92,246,0.2); border: 1px solid rgba(139,92,246,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.diag-text { flex: 1; }
+.diag-title { font-size: 15px; font-weight: 700; color: #e5e5e5; margin-bottom: 4px; }
+.diag-desc { font-size: 12px; color: #808080; line-height: 1.5; }
+.btn-diag {
+  padding: 10px 20px; border-radius: 6px; font-size: 13px; font-weight: 700;
+  background: #8B5CF6; color: #fff; border: none; cursor: pointer;
+  font-family: 'Raleway', Arial, sans-serif; white-space: nowrap; flex-shrink: 0;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Stack <span>Learning</span></div>
+  <nav class="nav">
+    <div class="nav-item active">Início</div>
+    <div class="nav-item">Stack Sketchain</div>
+    <div class="nav-item">Engenharia de IA</div>
+  </nav>
+  <div class="header-right">
+    <span class="search-icon">⌕</span>
+    <div class="avatar">D</div>
+  </div>
+</header>
+
+<!-- HERO — IA Track Feature -->
+<section class="hero-feature">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-accent"></div>
+  <div class="hero-bg-accent2"></div>
+  <div class="hero-fade"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      Nova trilha disponível
+    </div>
+    <h1 class="hero-title">Engenharia de<br><span>IA Aplicada</span></h1>
+    <p class="hero-desc">Do usuário de IA ao engenheiro de IA em 4 pilares. LLMs, RAGs, Agentes e Produção — do zero ao deploy.</p>
+    <div class="hero-pills">
+      <span class="pill pill-v">Fundamentos</span>
+      <span class="pill pill-b">Integração</span>
+      <span class="pill pill-g">Autonomia</span>
+      <span class="pill pill-o">Produção</span>
+    </div>
+    <div class="hero-actions">
+      <button class="btn-primary">▶ Iniciar avaliação diagnóstica</button>
+      <button class="btn-outline">Ver trilha</button>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="hero-stat">
+      <div class="hero-stat-num">30</div>
+      <div class="hero-stat-label">aulas</div>
+    </div>
+    <div class="hero-stat" style="margin-top: 12px;">
+      <div class="hero-stat-num" style="color: #D4A574;">4</div>
+      <div class="hero-stat-label">pilares</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTINUE WATCHING -->
+<section class="section" style="margin-top: 40px;">
+  <div class="section-header">
+    <div class="section-title">Continuar assistindo</div>
+    <div class="section-link">Ver tudo →</div>
+  </div>
+  <div class="lesson-row">
+    <div class="lesson-card">
+      <div class="lesson-num">03</div>
+      <div class="lesson-title">Hooks: useState e useEffect</div>
+      <div class="lesson-bar"><div class="lesson-bar-fill" style="width:40%;background:#D4A574;"></div></div>
+      <span class="lesson-tag" style="background:rgba(212,165,116,0.1);color:#D4A574;border:1px solid rgba(212,165,116,0.3);">Stack Sketchain</span>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-num ai">01</div>
+      <div class="lesson-title">O que são LLMs e como funcionam</div>
+      <div class="lesson-bar"><div class="lesson-bar-fill" style="width:0%;background:#8B5CF6;"></div></div>
+      <span class="lesson-tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6;border:1px solid rgba(139,92,246,0.3);">Engenharia de IA</span>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-num">08</div>
+      <div class="lesson-title">API Routes no Next.js 15.5</div>
+      <div class="lesson-bar"><div class="lesson-bar-fill" style="width:100%;background:#D4A574;"></div></div>
+      <span class="lesson-tag" style="background:rgba(212,165,116,0.1);color:#D4A574;border:1px solid rgba(212,165,116,0.3);">Stack Sketchain</span>
+    </div>
+    <div class="lesson-card">
+      <div class="lesson-num ai">05</div>
+      <div class="lesson-title">Embeddings e busca semântica na prática</div>
+      <div class="lesson-bar"></div>
+      <span class="lesson-tag" style="background:rgba(139,92,246,0.1);color:#8B5CF6;border:1px solid rgba(139,92,246,0.3);">Engenharia de IA</span>
+    </div>
+  </div>
+</section>
+
+<!-- SUAS TRILHAS -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">Suas trilhas</div>
+  </div>
+  <div class="track-cards">
+    <!-- Stack Sketchain -->
+    <div class="track-card">
+      <div class="track-card-bg track-stack"></div>
+      <!-- decorative tech dots -->
+      <div style="position:absolute;top:16px;right:16px;display:flex;gap:6px;opacity:0.4;">
+        <div style="width:8px;height:8px;border-radius:50%;background:#61DAFB;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#fff;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#3178C6;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#06B6D4;"></div>
+        <div style="width:8px;height:8px;border-radius:50%;background:#3ECF8E;"></div>
+      </div>
+      <div class="track-card-fade"></div>
+      <div class="track-card-body">
+        <div class="track-eyebrow" style="color:#D4A574;">Stack Sketchain</div>
+        <div class="track-title">React · Next.js · TypeScript<br>Supabase · shadcn/ui</div>
+        <div class="track-desc">33 aulas · 7 tecnologias · Do zero ao deploy</div>
+        <div class="track-footer">
+          <div class="track-progress-wrap">
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:4px;">8 de 33 aulas concluídas</div>
+            <div class="track-progress-bar"><div class="track-progress-fill" style="width:24%;background:#D4A574;"></div></div>
+          </div>
+          <div class="track-play">▶</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Engenharia de IA -->
+    <div class="track-card">
+      <div class="track-card-bg track-ai"></div>
+      <div class="track-ai-glow"></div>
+      <div style="position:absolute;top:16px;right:16px;">
+        <span style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+          color:#a78bfa;background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.4);
+          padding:3px 8px;border-radius:999px;">Novo</span>
+      </div>
+      <div class="track-card-fade"></div>
+      <div class="track-card-body">
+        <div class="track-eyebrow" style="color:#a78bfa;">Engenharia de IA</div>
+        <div class="track-title">LLMs · RAGs · Agentes<br>Produção & Fine-tuning</div>
+        <div class="track-desc">~30 aulas · 4 pilares · Avaliação diagnóstica</div>
+        <div class="track-footer">
+          <div class="track-progress-wrap">
+            <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-bottom:4px;">Avaliação diagnóstica pendente</div>
+            <div class="track-progress-bar"><div class="track-progress-fill" style="width:0%;background:#8B5CF6;"></div></div>
+          </div>
+          <div class="track-play" style="border-color:rgba(167,139,250,0.6);color:#a78bfa;">★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES DA IA -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">Pilares — Engenharia de IA</div>
+    <div class="section-link">Ver trilha completa →</div>
+  </div>
+
+  <!-- Diagnostic CTA -->
+  <div class="diag-cta" style="margin-bottom: 20px;">
+    <div class="diag-icon">🧠</div>
+    <div class="diag-text">
+      <div class="diag-title">Faça a avaliação diagnóstica</div>
+      <div class="diag-desc">Descubra o que você já sabe sobre IA. A plataforma vai personalizar a ordem das aulas e mostrar seu nível atual em cada pilar.</div>
+    </div>
+    <button class="btn-diag">Iniciar diagnóstico</button>
+  </div>
+
+  <div class="pillar-strip">
+    <div class="pillar-card">
+      <div class="pillar-num" style="color:#8B5CF6;">Pilar 01</div>
+      <div class="pillar-name">Fundamentos</div>
+      <div class="pillar-desc">LLMs, Transformers e Embeddings</div>
+      <div class="pillar-prog">0 de 8 aulas</div>
+      <div class="mini-prog-bar"><div class="mini-prog-fill" style="width:0%;background:#8B5CF6;"></div></div>
+    </div>
+    <div class="pillar-card" style="opacity:0.6;">
+      <div class="pillar-num" style="color:#60a5fa;">Pilar 02</div>
+      <div class="pillar-name">Integração</div>
+      <div class="pillar-desc">APIs generativas, RAGs e MCPs</div>
+      <div class="pillar-prog">0 de 8 aulas</div>
+      <div class="mini-prog-bar"></div>
+      <div class="lock-badge">🔒 Complete o Pilar 01</div>
+    </div>
+    <div class="pillar-card" style="opacity:0.4;">
+      <div class="pillar-num" style="color:#34d399;">Pilar 03</div>
+      <div class="pillar-name">Autonomia</div>
+      <div class="pillar-desc">Agentes autônomos e multiagentes</div>
+      <div class="pillar-prog">0 de 7 aulas</div>
+      <div class="mini-prog-bar"></div>
+      <div class="lock-badge">🔒 Bloqueado</div>
+    </div>
+    <div class="pillar-card" style="opacity:0.4;">
+      <div class="pillar-num" style="color:#fb923c;">Pilar 04</div>
+      <div class="pillar-name">Produção</div>
+      <div class="pillar-desc">DevOps de IA, segurança e fine-tuning</div>
+      <div class="pillar-prog">0 de 7 aulas</div>
+      <div class="mini-prog-bar"></div>
+      <div class="lock-badge">🔒 Bloqueado</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONHECIMENTO CONSOLIDADO -->
+<section class="section" style="padding-bottom: 60px;">
+  <div class="section-header">
+    <div class="section-title">Seu conhecimento</div>
+    <div class="section-link">Ver relatório completo →</div>
+  </div>
+  <div class="knowledge-bar-wrap">
+    <div class="knowledge-score">
+      <div class="knowledge-score-inner">
+        <div class="knowledge-num">62%</div>
+        <div class="knowledge-sub">geral</div>
+      </div>
+    </div>
+    <div class="knowledge-details">
+      <div class="knowledge-title">Progresso consolidado</div>
+      <div class="knowledge-desc">Seu conhecimento é calculado com base nas aulas concluídas e nos quizzes de cada trilha. As duas trilhas contribuem para um score unificado.</div>
+      <div class="knowledge-tracks">
+        <div class="k-track">
+          <div class="k-track-label">Stack Sketchain</div>
+          <div class="k-track-bar"><div class="k-track-fill" style="width:73%;background:#D4A574;"></div></div>
+          <div class="k-track-pct" style="color:#D4A574;">24%</div>
+        </div>
+        <div class="k-track">
+          <div class="k-track-label">Engenharia de IA</div>
+          <div class="k-track-bar"><div class="k-track-fill" style="width:0%;background:#8B5CF6;"></div></div>
+          <div class="k-track-pct" style="color:#8B5CF6;">0% — diagnóstico pendente</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

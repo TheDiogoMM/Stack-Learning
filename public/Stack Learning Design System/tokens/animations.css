@@ -1,0 +1,20 @@
+/* Stack Learning — Keyframes & motion utilities (from source app globals.css) */
+
+@keyframes sl-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sl-slide-right {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes sl-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.5; }
+}
+
+.sl-fade-in  { animation: sl-fade-in 300ms ease-out both; }
+.sl-slide-in { animation: sl-slide-right 300ms ease-out both; }
+.sl-pulse    { animation: sl-pulse 1.5s ease-in-out infinite; }

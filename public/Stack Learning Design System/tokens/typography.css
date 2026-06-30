@@ -1,0 +1,31 @@
+/* Stack Learning — Typography tokens */
+
+:root {
+  /* ── Families ────────────────────────────────────── */
+  --font-brand: 'Raleway', Arial, system-ui, sans-serif;   /* UI + headings */
+  --font-body: Arial, 'Raleway', system-ui, sans-serif;    /* long-form body (source app order) */
+  --font-mono: 'Fira Code', 'Cascadia Code', ui-monospace, Consolas, monospace;
+
+  /* ── Type scale ──────────────────────────────────── */
+  --text-display: 64px;   /* hero headline (clamp 32–64 in product) */
+  --text-h1: 29px;        /* 1.8rem — lesson title */
+  --text-h2: 21px;        /* 1.3rem — section header */
+  --text-h3: 16px;        /* 1rem — card title */
+  --text-body-lg: 19px;   /* 1.2rem — hero subhead */
+  --text-body: 15px;      /* 0.95rem — paragraph */
+  --text-sm: 14px;        /* 0.85rem — labels / nav */
+  --text-xs: 12px;        /* 0.75rem — meta / captions */
+
+  /* ── Weights ─────────────────────────────────────── */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ── Line height & tracking ──────────────────────── */
+  --leading-tight: 1.2;
+  --leading-snug: 1.4;
+  --leading-normal: 1.6;
+  --tracking-tight: -0.3px;
+  --tracking-display: -1.68px;
+}

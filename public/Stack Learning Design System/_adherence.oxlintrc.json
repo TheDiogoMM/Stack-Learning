@@ -1,0 +1,282 @@
+{
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "rules": {
+    "react/forbid-elements": [
+      "warn",
+      {
+        "forbid": []
+      }
+    ],
+    "no-restricted-imports": [
+      "warn",
+      {
+        "patterns": [
+          {
+            "group": [
+              "components/core/**",
+              "ui_kits/sketchain-academy/**"
+            ],
+            "message": "Import design-system components from 'index.js', not component internals."
+          }
+        ]
+      }
+    ],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "Literal[value=/#[0-9a-fA-F]{3,8}\\b/]",
+        "message": "Raw hex color — use a design-system color token via var()."
+      },
+      {
+        "selector": "Literal[value=/\\b\\d+px\\b/]",
+        "message": "Raw px value — use a design-system spacing token via var()."
+      },
+      {
+        "selector": "Literal[value=/font-family\\s*:\\s*(?!['\\\"]?(?:Raleway|Fira Code))/i]",
+        "message": "Font not provided by the design system. Available: Raleway, Fira Code."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|tone|color|solid|style|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: children, tone, color, solid, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|variant|size|iconLeft|iconRight|fullWidth|disabled|style|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: children, variant, size, iconLeft, iconRight, fullWidth, disabled, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|outline|ghost|success)$/]",
+        "message": "<Button> variant must be one of 'primary' | 'secondary' | 'outline' | 'ghost' | 'success'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|md|lg)$/]",
+        "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:children|accent|hover|padding|style|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: children, accent, hover, padding, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Icon'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|size|strokeWidth|className|style|key|ref|className|style|children)$/]",
+        "message": "<Icon> doesn't accept that prop. Declared props: name, size, strokeWidth, className, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:label|icon|style|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: label, icon, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ProgressBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:value|color|height|track|style|key|ref|className|style|children)$/]",
+        "message": "<ProgressBar> doesn't accept that prop. Declared props: value, color, height, track, style."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TabItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:id|label|key|ref|className|style|children)$/]",
+        "message": "<TabItem> doesn't accept that prop. Declared props: id, label."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/index.js"
+      ],
+      "rules": {
+        "no-restricted-imports": "off"
+      }
+    }
+  ],
+  "x-omelette": {
+    "components": {
+      "Badge": {
+        "replaces": []
+      },
+      "Button": {
+        "replaces": []
+      },
+      "Card": {
+        "replaces": []
+      },
+      "Icon": {
+        "replaces": []
+      },
+      "Input": {
+        "replaces": []
+      },
+      "ProgressBar": {
+        "replaces": []
+      },
+      "TabItem": {
+        "replaces": []
+      }
+    },
+    "tokens": [
+      "--accent-primary",
+      "--accent-secondary",
+      "--bg-app",
+      "--border-default",
+      "--border-strong",
+      "--brand-gradient",
+      "--color-black",
+      "--color-border",
+      "--color-danger",
+      "--color-dark-gray",
+      "--color-elevated",
+      "--color-gold",
+      "--color-gold-soft",
+      "--color-gray",
+      "--color-level-advanced",
+      "--color-level-beginner",
+      "--color-level-intermediate",
+      "--color-light-gray",
+      "--color-success",
+      "--color-success-bright",
+      "--color-terracota",
+      "--color-terracota-soft",
+      "--color-warning",
+      "--color-white",
+      "--container-max",
+      "--content-max",
+      "--duration-base",
+      "--duration-fast",
+      "--ease-out",
+      "--ease-standard",
+      "--focus-ring",
+      "--font-body",
+      "--font-brand",
+      "--font-mono",
+      "--hover-lift-scale",
+      "--leading-normal",
+      "--leading-snug",
+      "--leading-tight",
+      "--radius-full",
+      "--radius-lg",
+      "--radius-md",
+      "--radius-sm",
+      "--shadow-card-hover",
+      "--shadow-overlay",
+      "--space-1",
+      "--space-10",
+      "--space-15",
+      "--space-2",
+      "--space-3",
+      "--space-4",
+      "--space-5",
+      "--space-6",
+      "--space-8",
+      "--surface-card",
+      "--surface-code",
+      "--tech-nextjs",
+      "--tech-react",
+      "--tech-shadcn",
+      "--tech-sketchain",
+      "--tech-supabase",
+      "--tech-tailwind",
+      "--tech-typescript",
+      "--text-body",
+      "--text-body-lg",
+      "--text-display",
+      "--text-h1",
+      "--text-h2",
+      "--text-h3",
+      "--text-heading",
+      "--text-link",
+      "--text-muted",
+      "--text-primary",
+      "--text-sm",
+      "--text-xs",
+      "--tracking-display",
+      "--tracking-tight",
+      "--weight-bold",
+      "--weight-medium",
+      "--weight-regular",
+      "--weight-semibold"
+    ],
+    "tokenKinds": {
+      "--color-black": "color",
+      "--color-dark-gray": "color",
+      "--color-gray": "color",
+      "--color-light-gray": "color",
+      "--color-border": "color",
+      "--color-elevated": "color",
+      "--color-white": "color",
+      "--color-terracota": "color",
+      "--color-gold": "color",
+      "--color-terracota-soft": "color",
+      "--color-gold-soft": "color",
+      "--brand-gradient": "color",
+      "--color-success": "color",
+      "--color-success-bright": "color",
+      "--color-warning": "color",
+      "--color-danger": "color",
+      "--color-level-beginner": "color",
+      "--color-level-intermediate": "color",
+      "--color-level-advanced": "color",
+      "--tech-react": "color",
+      "--tech-nextjs": "color",
+      "--tech-typescript": "color",
+      "--tech-tailwind": "color",
+      "--tech-shadcn": "color",
+      "--tech-supabase": "color",
+      "--tech-sketchain": "color",
+      "--bg-app": "color",
+      "--surface-card": "color",
+      "--surface-code": "color",
+      "--border-default": "color",
+      "--border-strong": "color",
+      "--text-primary": "font",
+      "--text-muted": "font",
+      "--text-heading": "font",
+      "--text-link": "font",
+      "--accent-primary": "color",
+      "--accent-secondary": "color",
+      "--focus-ring": "color",
+      "--font-brand": "font",
+      "--font-body": "font",
+      "--font-mono": "font",
+      "--text-display": "font",
+      "--text-h1": "font",
+      "--text-h2": "font",
+      "--text-h3": "font",
+      "--text-body-lg": "font",
+      "--text-body": "font",
+      "--text-sm": "font",
+      "--text-xs": "font",
+      "--weight-regular": "font",
+      "--weight-medium": "font",
+      "--weight-semibold": "font",
+      "--weight-bold": "font",
+      "--leading-tight": "font",
+      "--leading-snug": "font",
+      "--leading-normal": "font",
+      "--tracking-tight": "font",
+      "--tracking-display": "font",
+      "--space-1": "spacing",
+      "--space-2": "spacing",
+      "--space-3": "spacing",
+      "--space-4": "spacing",
+      "--space-5": "spacing",
+      "--space-6": "spacing",
+      "--space-8": "spacing",
+      "--space-10": "spacing",
+      "--space-15": "spacing",
+      "--radius-sm": "radius",
+      "--radius-md": "radius",
+      "--radius-lg": "radius",
+      "--radius-full": "radius",
+      "--shadow-card-hover": "shadow",
+      "--shadow-overlay": "shadow",
+      "--container-max": "spacing",
+      "--content-max": "spacing",
+      "--ease-standard": "other",
+      "--ease-out": "other",
+      "--duration-fast": "other",
+      "--duration-base": "other",
+      "--hover-lift-scale": "other"
+    },
+    "fontFamilies": [
+      "Fira Code",
+      "Raleway"
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+<!-- @dsCard group="Spacing" viewport="700x170" name="Radius & elevation" subtitle="Corner radii + hover lift" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../styles.css">
+<style>
+body{margin:0;background:var(--bg-app);color:var(--text-primary);font-family:var(--font-brand);padding:24px;display:flex;gap:20px;align-items:center}
+.b{width:78px;height:78px;background:var(--surface-card);border:1px solid var(--border-default);display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.l{font-family:var(--font-mono);color:var(--text-muted);font-size:11px}
+.lift{box-shadow:var(--shadow-card-hover);transform:scale(1.02)}
+.cap{color:var(--text-muted);font-size:12px;margin-left:8px}
+</style></head><body>
+<div class="b" style="border-radius:4px"><span class="l">4 · sm</span></div>
+<div class="b" style="border-radius:6px"><span class="l">6 · md</span></div>
+<div class="b" style="border-radius:8px"><span class="l">8 · lg</span></div>
+<div class="b" style="border-radius:9999px;width:78px;height:36px"><span class="l">full</span></div>
+<div class="b lift" style="border-radius:8px;border-color:#3a3a3a"><span class="l">hover</span></div>
+<span class="cap">scale(1.02) + shadow 0 8px 24px /.4</span>
+</body></html>

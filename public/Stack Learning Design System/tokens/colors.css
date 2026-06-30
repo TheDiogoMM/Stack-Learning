@@ -1,0 +1,54 @@
+/* Stack Learning — Color tokens
+   Netflix-dark foundation with terracota/gold brand accents. */
+
+:root {
+  /* ── Base neutrals (Netflix-dark) ───────────────── */
+  --color-black: #0F0F0F;       /* app background */
+  --color-dark-gray: #1A1A1A;   /* surfaces / cards */
+  --color-gray: #808080;        /* muted text / borders */
+  --color-light-gray: #E5E5E5;  /* primary text */
+  --color-border: #2A2A2A;      /* hairline dividers */
+  --color-elevated: #1E1E1E;    /* code / editor surface */
+  --color-white: #FFFFFF;
+
+  /* ── Brand accents ──────────────────────────────── */
+  --color-terracota: #D4A574;   /* primary brand */
+  --color-gold: #F4A261;        /* secondary brand */
+  --color-terracota-soft: rgba(212, 165, 116, 0.13);
+  --color-gold-soft: rgba(244, 162, 97, 0.13);
+  --brand-gradient: linear-gradient(135deg, #D4A574, #F4A261); /* @kind color */
+
+  /* ── Semantic / status ──────────────────────────── */
+  --color-success: #27AE60;
+  --color-success-bright: #3ECF8E;
+  --color-warning: #F4A261;
+  --color-danger: #E74C3C;
+
+  /* ── Difficulty scale ───────────────────────────── */
+  --color-level-beginner: #3ECF8E;     /* Iniciante */
+  --color-level-intermediate: #F4A261; /* Intermediário */
+  --color-level-advanced: #E74C3C;     /* Avançado */
+
+  /* ── Technology track accents ───────────────────── */
+  --tech-react: #61DAFB;
+  --tech-nextjs: #FFFFFF;
+  --tech-typescript: #3178C6;
+  --tech-tailwind: #06B6D4;
+  --tech-shadcn: #A1A1AA;
+  --tech-supabase: #3ECF8E;
+  --tech-sketchain: #D4A574;
+
+  /* ── Semantic aliases ───────────────────────────── */
+  --bg-app: var(--color-black);
+  --surface-card: var(--color-dark-gray);
+  --surface-code: var(--color-elevated);
+  --border-default: var(--color-border);
+  --border-strong: var(--color-gray);
+  --text-primary: var(--color-light-gray);
+  --text-muted: var(--color-gray);
+  --text-heading: var(--color-terracota);
+  --text-link: var(--color-gold);
+  --accent-primary: var(--color-terracota);
+  --accent-secondary: var(--color-gold);
+  --focus-ring: var(--color-terracota);
+}

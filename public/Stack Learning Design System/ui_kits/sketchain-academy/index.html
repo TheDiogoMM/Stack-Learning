@@ -1,0 +1,80 @@
+<!-- @dsCard group="Sketchain Academy" viewport="1280x720" name="Learning app" subtitle="Home · Lesson · Login — interactive recreation" -->
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Sketchain Academy — UI Kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>
+  html, body { margin: 0; height: 100%; background: var(--bg-app); }
+  * { box-sizing: border-box; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: var(--surface-card); }
+  ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 4px; }
+  #root { height: 100%; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="data.js"></script>
+<script type="text/babel" src="HomeScreen.jsx"></script>
+<script type="text/babel" src="LessonScreen.jsx"></script>
+<script type="text/babel" src="LoginScreen.jsx"></script>
+<script type="text/babel">
+const { Icon } = window.StackLearningDesignSystem_7ae9fc;
+
+function App() {
+  const [screen, setScreen] = React.useState('home');
+  const go = (s) => setScreen(s);
+
+  return (
+    <div style={{ minHeight: '100%', background: 'var(--bg-app)' }}>
+      {screen !== 'login' && (
+        <HeaderBar onNavigate={go} current={screen} />
+      )}
+      {screen === 'home' && <HomeScreen onOpenLesson={() => go('lesson')} onOpenTrack={() => go('lesson')} />}
+      {screen === 'lesson' && <LessonScreen onNavigate={go} />}
+      {screen === 'login' && <LoginScreen onNavigate={go} />}
+    </div>
+  );
+}
+
+// Header with an account affordance that routes to login.
+function HeaderBar({ onNavigate, current }) {
+  return (
+    <header style={{
+      background: 'var(--surface-card)', padding: '14px 28px',
+      borderBottom: '1px solid var(--border-default)',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(8px)',
+    }}>
+      <div onClick={() => onNavigate('home')} style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer' }}>
+        <img src="../../assets/logo-symbol.svg" height="26" alt="" />
+        <span style={{ fontFamily: 'var(--font-brand)', fontWeight: 700, fontSize: 17, color: 'var(--text-primary)', letterSpacing: '-0.3px' }}>
+          Sketchain <span style={{ color: 'var(--accent-primary)' }}>Academy</span>
+        </span>
+      </div>
+      <nav style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '7px 12px', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-default)', color: 'var(--text-muted)', fontSize: 13, fontFamily: 'var(--font-brand)' }}>
+          <Icon name="search" size={15} /> Buscar
+        </div>
+        <button onClick={() => onNavigate('home')} style={navBtn(current === 'home')}>Home</button>
+        <button onClick={() => onNavigate('login')} title="Conta" style={{ background: 'none', border: '1px solid var(--border-default)', borderRadius: '50%', width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--text-primary)' }}>
+          <Icon name="user" size={17} />
+        </button>
+      </nav>
+    </header>
+  );
+}
+function navBtn(active) {
+  return { background: 'none', border: 'none', cursor: 'pointer', color: active ? 'var(--accent-primary)' : 'var(--text-primary)', fontFamily: 'var(--font-brand)', fontSize: 14, fontWeight: active ? 700 : 400, padding: '7px 10px' };
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

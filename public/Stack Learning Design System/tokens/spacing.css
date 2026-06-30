@@ -1,0 +1,35 @@
+/* Stack Learning — Spacing, radius, shadow, motion tokens */
+
+:root {
+  /* ── Spacing scale (4px base) ────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-15: 60px;
+
+  /* ── Radius ──────────────────────────────────────── */
+  --radius-sm: 4px;    /* badges, inputs, chips */
+  --radius-md: 6px;    /* buttons */
+  --radius-lg: 8px;    /* cards, panels */
+  --radius-full: 9999px;
+
+  /* ── Shadows ─────────────────────────────────────── */
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.6);
+
+  /* ── Layout ──────────────────────────────────────── */
+  --container-max: 1280px;
+  --content-max: 1200px;
+
+  /* ── Motion ──────────────────────────────────────── */
+  --ease-standard: ease-in-out;    /* @kind other */
+  --ease-out: ease-out;            /* @kind other */
+  --duration-fast: 200ms;          /* @kind other */
+  --duration-base: 300ms;          /* @kind other */
+  --hover-lift-scale: 1.02;        /* @kind other */
+}

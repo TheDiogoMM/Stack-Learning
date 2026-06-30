@@ -1,0 +1,11 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stack Learning symbol">
+  <defs>
+    <linearGradient id="sl-mark" x1="6" y1="6" x2="34" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D4A574"></stop>
+      <stop offset="1" stop-color="#F4A261"></stop>
+    </linearGradient>
+  </defs>
+  <path d="M20 5.5 34 13 20 20.5 6 13 20 5.5Z" stroke="url(#sl-mark)" stroke-width="2.2" stroke-linejoin="round" fill="none"></path>
+  <path d="M6 20 20 27.5 34 20" stroke="url(#sl-mark)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" fill="none" opacity="0.62"></path>
+  <path d="M6 27 20 34.5 34 27" stroke="url(#sl-mark)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" fill="none" opacity="0.32"></path>
+</svg>
