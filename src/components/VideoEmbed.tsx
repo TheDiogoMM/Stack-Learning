@@ -127,7 +127,7 @@ const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duratio
               onClick={() => setShowReplace(true)}
               style={{
                 background: 'none', border: 'none',
-                color: 'var(--netflix-gray)', fontSize: '0.75rem',
+                color: 'var(--text-muted)', fontSize: '0.75rem',
                 cursor: 'pointer', alignSelf: 'flex-end',
                 textDecoration: 'underline', opacity: 0.55, padding: 0,
               }}
@@ -151,7 +151,7 @@ const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duratio
 
       {/* Info card */}
       <div style={{
-        background: 'var(--netflix-dark-gray)',
+        background: 'var(--surface-card)',
         border: '1px solid #2a2a2a',
         borderRadius: '8px',
         padding: '14px 16px',
@@ -161,11 +161,11 @@ const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duratio
         gap: '12px',
       }}>
         <div style={{ minWidth: 0 }}>
-          <p style={{ color: 'var(--netflix-light-gray)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '4px', wordBreak: 'break-word' }}>
+          <p style={{ color: 'var(--text-primary)', fontSize: '0.9rem', fontWeight: '600', marginBottom: '4px', wordBreak: 'break-word' }}>
             {activeTitle}
           </p>
-          <p style={{ color: 'var(--netflix-gray)', fontSize: '0.8rem' }}>
-            por <span style={{ color: 'var(--sketchain-gold)' }}>{activeCreator}</span>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
+            por <span style={{ color: 'var(--accent-secondary)' }}>{activeCreator}</span>
             {hasOverride && (
               <span style={{ color: '#3ecf8e', marginLeft: '8px', fontSize: '0.75rem' }}>● substituído</span>
             )}
@@ -195,7 +195,7 @@ const VideoEmbed = memo(function VideoEmbed({ youtubeId, title, creator, duratio
             background: '#2a2a2a',
             borderRadius: '6px',
             padding: '6px 12px',
-            color: 'var(--netflix-gray)',
+            color: 'var(--text-muted)',
             fontSize: '0.8rem',
             whiteSpace: 'nowrap',
           }}>
@@ -252,11 +252,11 @@ function ReplaceForm({ searchUrl, originalTitle, originalCreator, originalDurati
       gap: '10px',
     }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <p style={{ color: 'var(--netflix-light-gray)', fontSize: '0.85rem', fontWeight: '600', margin: 0 }}>
+        <p style={{ color: 'var(--text-primary)', fontSize: '0.85rem', fontWeight: '600', margin: 0 }}>
           Substituir vídeo
         </p>
         {onCancel && (
-          <button onClick={onCancel} style={{ background: 'none', border: 'none', color: 'var(--netflix-gray)', cursor: 'pointer', fontSize: '1rem', lineHeight: 1, padding: '2px 6px' }}>✕</button>
+          <button onClick={onCancel} style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', fontSize: '1rem', lineHeight: 1, padding: '2px 6px' }}>✕</button>
         )}
       </div>
 
@@ -319,7 +319,7 @@ function ReplaceForm({ searchUrl, originalTitle, originalCreator, originalDurati
               style={inputStyle}
             />
           </div>
-          <p style={{ color: 'var(--netflix-gray)', fontSize: '0.75rem', margin: 0 }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem', margin: 0 }}>
             Deixe em branco para manter as informações anteriores.
           </p>
         </>
@@ -329,10 +329,10 @@ function ReplaceForm({ searchUrl, originalTitle, originalCreator, originalDurati
         onClick={handleApply}
         disabled={!isValidUrl}
         style={{
-          background: isValidUrl ? 'var(--sketchain-terracota)' : '#333',
+          background: isValidUrl ? 'var(--accent-primary)' : '#333',
           border: 'none',
           borderRadius: '6px',
-          color: isValidUrl ? '#fff' : 'var(--netflix-gray)',
+          color: isValidUrl ? '#fff' : 'var(--text-muted)',
           fontSize: '0.85rem',
           fontWeight: '600',
           padding: '10px 20px',
@@ -362,8 +362,8 @@ function UnavailableFallback(props: Omit<ReplaceFormProps, 'onCancel'>) {
     }}>
       <div style={{ fontSize: '2rem' }}>📹</div>
       <div>
-        <p style={{ color: 'var(--netflix-light-gray)', fontWeight: '600', marginBottom: '4px' }}>Vídeo indisponível</p>
-        <p style={{ color: 'var(--netflix-gray)', fontSize: '0.82rem' }}>
+        <p style={{ color: 'var(--text-primary)', fontWeight: '600', marginBottom: '4px' }}>Vídeo indisponível</p>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.82rem' }}>
           Este vídeo foi removido ou não pode ser incorporado.
         </p>
       </div>
@@ -376,7 +376,7 @@ function UnavailableFallback(props: Omit<ReplaceFormProps, 'onCancel'>) {
 
 const labelStyle: React.CSSProperties = {
   display: 'block',
-  color: 'var(--netflix-gray)',
+  color: 'var(--text-muted)',
   fontSize: '0.75rem',
   marginBottom: '5px',
 };
@@ -386,7 +386,7 @@ const inputStyle: React.CSSProperties = {
   background: '#1e1e1e',
   border: '1px solid #3a3a3a',
   borderRadius: '6px',
-  color: 'var(--netflix-light-gray)',
+  color: 'var(--text-primary)',
   padding: '8px 10px',
   fontSize: '0.82rem',
   outline: 'none',

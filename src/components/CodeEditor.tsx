@@ -29,7 +29,7 @@ export default function CodeEditor({ initialCode, language = 'typescript', solut
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#e74c3c', display: 'inline-block' }} />
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#f39c12', display: 'inline-block' }} />
           <span style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27ae60', display: 'inline-block' }} />
-          <span style={{ color: 'var(--netflix-gray)', fontSize: '0.75rem', marginLeft: '8px' }}>
+          <span style={{ color: 'var(--text-muted)', fontSize: '0.75rem', marginLeft: '8px' }}>
             {language === 'typescript' ? 'index.tsx' : 'index.js'}
           </span>
         </div>
@@ -56,11 +56,11 @@ export default function CodeEditor({ initialCode, language = 'typescript', solut
       <div style={{ display: 'flex', gap: '10px' }}>
         <button
           style={{
-            background: 'var(--netflix-dark-gray)',
-            border: '1px solid var(--netflix-gray)',
+            background: 'var(--surface-card)',
+            border: '1px solid var(--text-muted)',
             borderRadius: '6px',
             padding: '8px 18px',
-            color: 'var(--netflix-gray)',
+            color: 'var(--text-muted)',
             cursor: 'not-allowed',
             fontSize: '0.85rem',
           }}
@@ -75,10 +75,10 @@ export default function CodeEditor({ initialCode, language = 'typescript', solut
             onClick={() => setShowSolution(!showSolution)}
             style={{
               background: 'none',
-              border: '1px solid var(--sketchain-gold)',
+              border: '1px solid var(--accent-secondary)',
               borderRadius: '6px',
               padding: '8px 18px',
-              color: 'var(--sketchain-gold)',
+              color: 'var(--accent-secondary)',
               cursor: 'pointer',
               fontSize: '0.85rem',
               transition: 'background 200ms',
@@ -92,16 +92,16 @@ export default function CodeEditor({ initialCode, language = 'typescript', solut
       {showSolution && solution && (
         <div style={{
           background: '#1e1e1e',
-          border: '1px solid var(--sketchain-gold)',
+          border: '1px solid var(--accent-secondary)',
           borderRadius: '8px',
           overflow: 'hidden',
         }}>
           <div style={{
             background: '#2a2400',
             padding: '8px 16px',
-            borderBottom: '1px solid var(--sketchain-gold)',
+            borderBottom: '1px solid var(--accent-secondary)',
           }}>
-            <span style={{ color: 'var(--sketchain-gold)', fontSize: '0.8rem', fontWeight: 'bold' }}>
+            <span style={{ color: 'var(--accent-secondary)', fontSize: '0.8rem', fontWeight: 'bold' }}>
               💡 Solução
             </span>
           </div>

@@ -24,7 +24,7 @@ export default function TechPath({ techId, onNavigate }: Props) {
 
   if (!config) {
     return (
-      <div style={{ padding: '40px', color: 'var(--netflix-light-gray)' }}>
+      <div style={{ padding: '40px', color: 'var(--text-primary)' }}>
         Tecnologia não encontrada.{' '}
         <button onClick={() => onNavigate('home')} style={linkBtn}>Voltar</button>
       </div>
@@ -41,7 +41,7 @@ export default function TechPath({ techId, onNavigate }: Props) {
       <button onClick={() => onNavigate('home')} style={linkBtn}>← Home</button>
 
       <h2 style={{
-        color: config.color === '#fff' || config.color === '#18181b' ? 'var(--netflix-light-gray)' : config.color,
+        color: config.color === '#fff' || config.color === '#18181b' ? 'var(--text-primary)' : config.color,
         fontSize: '1.8rem',
         fontWeight: 'bold',
         margin: '20px 0 4px',
@@ -50,11 +50,11 @@ export default function TechPath({ techId, onNavigate }: Props) {
       </h2>
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '8px' }}>
-        <p style={{ color: 'var(--netflix-gray)', fontSize: '0.9rem' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
           {doneCount}/{lessons.length} aulas completas
         </p>
-        <span style={{ color: 'var(--netflix-gray)', fontSize: '0.9rem' }}>·</span>
-        <p style={{ color: 'var(--netflix-gray)', fontSize: '0.9rem' }}>{percent}%</p>
+        <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>·</span>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>{percent}%</p>
       </div>
 
       <div style={{ background: '#2a2a2a', borderRadius: '4px', height: '4px', marginBottom: '32px' }}>
@@ -75,7 +75,7 @@ export default function TechPath({ techId, onNavigate }: Props) {
               key={lesson.id}
               onClick={() => onNavigate('lesson', { id: lesson.id })}
               style={{
-                background: 'var(--netflix-dark-gray)',
+                background: 'var(--surface-card)',
                 border: `1px solid ${done ? config.color + '44' : '#2a2a2a'}`,
                 borderLeft: `4px solid ${done ? config.color : '#2a2a2a'}`,
                 borderRadius: '8px',
@@ -88,14 +88,14 @@ export default function TechPath({ techId, onNavigate }: Props) {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                <span style={{ color: 'var(--netflix-gray)', fontSize: '0.85rem', minWidth: '28px' }}>
+                <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem', minWidth: '28px' }}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
-                  <p style={{ color: 'var(--netflix-light-gray)', fontSize: '0.95rem', marginBottom: '2px' }}>
+                  <p style={{ color: 'var(--text-primary)', fontSize: '0.95rem', marginBottom: '2px' }}>
                     {lesson.title}
                   </p>
-                  <p style={{ color: 'var(--netflix-gray)', fontSize: '0.75rem' }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.75rem' }}>
                     {lesson.difficulty} · {lesson.estimatedTime} min
                   </p>
                 </div>
@@ -114,7 +114,7 @@ export default function TechPath({ techId, onNavigate }: Props) {
 const linkBtn: React.CSSProperties = {
   background: 'none',
   border: 'none',
-  color: 'var(--sketchain-gold)',
+  color: 'var(--accent-secondary)',
   cursor: 'pointer',
   fontSize: '0.9rem',
   padding: 0,

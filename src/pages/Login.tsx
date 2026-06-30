@@ -21,23 +21,23 @@ export default function Login({ onNavigate }: Props) {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'var(--netflix-black)',
+      background: 'var(--bg-app)',
     }}>
       <div style={{
-        background: 'var(--netflix-dark-gray)',
-        border: '1px solid var(--sketchain-terracota)',
+        background: 'var(--surface-card)',
+        border: '1px solid var(--accent-primary)',
         borderRadius: '8px',
         padding: '40px',
         width: '100%',
         maxWidth: '400px',
       }}>
-        <h2 style={{ color: 'var(--sketchain-terracota)', fontSize: '1.5rem', marginBottom: '24px', fontWeight: 'bold' }}>
+        <h2 style={{ color: 'var(--accent-primary)', fontSize: '1.5rem', marginBottom: '24px', fontWeight: 'bold' }}>
           Entrar
         </h2>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label style={{ color: 'var(--netflix-light-gray)', fontSize: '0.85rem', display: 'block', marginBottom: '6px' }}>
+            <label style={{ color: 'var(--text-primary)', fontSize: '0.85rem', display: 'block', marginBottom: '6px' }}>
               Email
             </label>
             <input
@@ -48,10 +48,10 @@ export default function Login({ onNavigate }: Props) {
               style={{
                 width: '100%',
                 padding: '10px 12px',
-                background: 'var(--netflix-black)',
-                border: '1px solid var(--netflix-gray)',
+                background: 'var(--bg-app)',
+                border: '1px solid var(--text-muted)',
                 borderRadius: '4px',
-                color: 'var(--netflix-light-gray)',
+                color: 'var(--text-primary)',
                 fontSize: '0.95rem',
                 outline: 'none',
               }}
@@ -59,7 +59,7 @@ export default function Login({ onNavigate }: Props) {
           </div>
 
           <div>
-            <label style={{ color: 'var(--netflix-light-gray)', fontSize: '0.85rem', display: 'block', marginBottom: '6px' }}>
+            <label style={{ color: 'var(--text-primary)', fontSize: '0.85rem', display: 'block', marginBottom: '6px' }}>
               Senha
             </label>
             <input
@@ -70,10 +70,10 @@ export default function Login({ onNavigate }: Props) {
               style={{
                 width: '100%',
                 padding: '10px 12px',
-                background: 'var(--netflix-black)',
-                border: '1px solid var(--netflix-gray)',
+                background: 'var(--bg-app)',
+                border: '1px solid var(--text-muted)',
                 borderRadius: '4px',
-                color: 'var(--netflix-light-gray)',
+                color: 'var(--text-primary)',
                 fontSize: '0.95rem',
                 outline: 'none',
               }}
@@ -88,7 +88,7 @@ export default function Login({ onNavigate }: Props) {
             type="submit"
             disabled={loading}
             style={{
-              background: 'var(--sketchain-terracota)',
+              background: 'var(--accent-primary)',
               color: '#fff',
               border: 'none',
               borderRadius: '4px',
@@ -104,11 +104,11 @@ export default function Login({ onNavigate }: Props) {
           </button>
         </form>
 
-        <p style={{ color: 'var(--netflix-gray)', fontSize: '0.85rem', marginTop: '20px', textAlign: 'center' }}>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '20px', textAlign: 'center' }}>
           Não tem conta?{' '}
           <button
             onClick={() => onNavigate('register')}
-            style={{ color: 'var(--sketchain-gold)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem' }}
+            style={{ color: 'var(--accent-secondary)', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.85rem' }}
           >
             Registre-se
           </button>
