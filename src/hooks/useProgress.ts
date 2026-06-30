@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, createContext, useContext } from 'react';
 import { supabase } from '@/lib/supabase';
+import { allLessons, type TrackId } from '@/data/lessons';
 
 interface ProgressState {
   completed: string[];
@@ -13,6 +14,7 @@ interface ProgressContext extends ProgressState {
   isCompleted: (lessonId: string) => boolean;
   isBookmarked: (lessonId: string) => boolean;
   getProgressPercent: (lessonIds: string[]) => number;
+  completionByTrack: (track: TrackId) => { done: number; total: number; pct: number };
 }
 
 export const ProgressContext = createContext<ProgressContext>({
@@ -24,6 +26,7 @@ export const ProgressContext = createContext<ProgressContext>({
   isCompleted: () => false,
   isBookmarked: () => false,
   getProgressPercent: () => 0,
+  completionByTrack: () => ({ done: 0, total: 0, pct: 0 }),
 });
 
 export function useProgress() {
@@ -125,9 +128,16 @@ export function useProgressProvider(): ProgressContext {
     return Math.round((done / lessonIds.length) * 100);
   }, [state.completed]);
 
+  const completionByTrack = useCallback((track: TrackId): { done: number; total: number; pct: number } => {
+    const inTrack = allLessons.filter((l) => (l.track ?? 'stack') === track);
+    const total = inTrack.length;
+    const done = inTrack.filter((l) => state.completed.includes(l.id)).length;
+    return { done, total, pct: total ? Math.round((done / total) * 100) : 0 };
+  }, [state.completed]);
+
   void update; // evita warning — update é usado via setState direto nas funções acima
 
-  return { ...state, markComplete, unmarkComplete, toggleBookmark, isCompleted, isBookmarked, getProgressPercent };
+  return { ...state, markComplete, unmarkComplete, toggleBookmark, isCompleted, isBookmarked, getProgressPercent, completionByTrack };
 }
 
 async function syncToSupabase(state: ProgressState) {
@@ -137,13 +147,18 @@ async function syncToSupabase(state: ProgressState) {
   const allIds = Array.from(new Set([...state.completed, ...state.bookmarked]));
   if (allIds.length === 0) return;
 
-  const rows = allIds.map(lesson_id => ({
-    user_id: data.user!.id,
-    lesson_id,
-    completed: state.completed.includes(lesson_id),
-    bookmarked: state.bookmarked.includes(lesson_id),
-    updated_at: new Date().toISOString(),
-  }));
+  const rows = allIds.map(lesson_id => {
+    const lesson = allLessons.find((l) => l.id === lesson_id);
+    const track = lesson?.track ?? 'stack';
+    return {
+      user_id: data.user!.id,
+      lesson_id,
+      completed: state.completed.includes(lesson_id),
+      bookmarked: state.bookmarked.includes(lesson_id),
+      track,
+      updated_at: new Date().toISOString(),
+    };
+  });
 
   await supabase.from('user_progress').upsert(rows, { onConflict: 'user_id,lesson_id' });
 }
