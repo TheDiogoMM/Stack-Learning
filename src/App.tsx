@@ -2,6 +2,8 @@ import { useState, lazy, Suspense, useCallback } from 'react';
 import './styles/globals.css';
 import { useAuth } from '@/hooks/useAuth';
 import Header from '@/components/Header';
+import { QuizProvider } from '@/providers/QuizProvider';
+import OfflineBanner from '@/components/OfflineBanner';
 
 const Home        = lazy(() => import('@/pages/Home'));
 const Login       = lazy(() => import('@/pages/Login'));
@@ -9,8 +11,13 @@ const Register    = lazy(() => import('@/pages/Register'));
 const Profile     = lazy(() => import('@/pages/Profile'));
 const TechPath    = lazy(() => import('@/pages/TechPath'));
 const LessonDetail = lazy(() => import('@/pages/LessonDetail'));
+const AITrackPage      = lazy(() => import('@/pages/AITrackPage'));
+const DiagnosticScreen = lazy(() => import('@/pages/DiagnosticScreen'));
+const DiagnosticResult = lazy(() => import('@/pages/DiagnosticResult'));
 
-type Page = 'home' | 'login' | 'register' | 'profile' | 'lesson' | 'tech-path';
+type Page =
+  | 'home' | 'login' | 'register' | 'profile' | 'lesson' | 'tech-path'
+  | 'ai-track' | 'ai-lesson' | 'diagnostic' | 'diagnostic-result';
 
 function PageLoader() {
   return (
@@ -19,7 +26,7 @@ function PageLoader() {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'var(--netflix-gray)',
+      color: 'var(--text-muted)',
       fontSize: '0.9rem',
     }}>
       <span className="pulse">Carregando...</span>
@@ -31,11 +38,11 @@ function AppLoader() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: 'var(--netflix-black)',
+      background: 'var(--bg-app)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      color: 'var(--netflix-gray)',
+      color: 'var(--text-muted)',
     }}>
       <span className="pulse">Carregando...</span>
     </div>
@@ -68,21 +75,26 @@ export default function App() {
 
   function renderPage() {
     switch (page) {
-      case 'profile':   return <Profile onNavigate={navigate} />;
-      case 'tech-path': return <TechPath techId={pageParams.id ?? ''} onNavigate={navigate} />;
-      case 'lesson':    return <LessonDetail lessonId={pageParams.id ?? ''} onNavigate={navigate} />;
-      default:          return <Home onNavigate={navigate} />;
+      case 'profile':            return <Profile onNavigate={navigate} />;
+      case 'tech-path':          return <TechPath techId={pageParams.id ?? ''} onNavigate={navigate} />;
+      case 'lesson':             return <LessonDetail lessonId={pageParams.id ?? ''} onNavigate={navigate} />;
+      case 'ai-track':           return <AITrackPage initialPillar={pageParams.pillar} onNavigate={navigate} />;
+      case 'ai-lesson':          return <LessonDetail lessonId={pageParams.id ?? ''} onNavigate={navigate} />;
+      case 'diagnostic':         return <DiagnosticScreen onNavigate={navigate} />;
+      case 'diagnostic-result':  return <DiagnosticResult onNavigate={navigate} />;
+      default:                   return <Home onNavigate={navigate} />;
     }
   }
 
   return (
-    <>
+    <QuizProvider>
+      <OfflineBanner />
       <Header onNavigate={navigate} />
-      <main style={{ background: 'var(--netflix-black)', minHeight: '100vh', color: 'var(--netflix-light-gray)' }}>
+      <main style={{ background: 'var(--bg-app)', minHeight: '100vh', color: 'var(--text-primary)' }}>
         <Suspense fallback={<PageLoader />}>
           {renderPage()}
         </Suspense>
       </main>
-    </>
+    </QuizProvider>
   );
 }
