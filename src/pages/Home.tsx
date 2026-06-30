@@ -1,204 +1,160 @@
-import { useRef } from 'react';
-import { getLessonsByTechnology, lessons } from '@/data/lessons';
+import { useMemo } from 'react';
+import { allLessons } from '@/data/lessons';
+import { TRACKS, PILLARS } from '@/data/tracks';
 import { useProgress } from '@/hooks/useProgress';
+import { useQuizStore } from '@/providers/QuizProvider';
+import TrackPoster from '@/components/TrackPoster';
+import PillarCard from '@/components/PillarCard';
+import Button from '@/components/ds/Button';
+import Icon from '@/components/ds/Icon';
+import Badge from '@/components/ds/Badge';
 
 interface Props {
   onNavigate: (page: string, params?: Record<string, string>) => void;
 }
 
-
-const TECH_TRACKS = [
-  { id: 'react',      tech: 'React 19' as const,       title: 'React 19',             desc: 'Componentes, hooks e context',            color: '#61dafb' },
-  { id: 'nextjs',     tech: 'Next.js 15.5' as const,   title: 'Next.js 15.5',         desc: 'App Router, Server Components e deploy',  color: '#fff' },
-  { id: 'typescript', tech: 'TypeScript' as const,      title: 'TypeScript',           desc: 'Tipos, generics e boas práticas',          color: '#3178c6' },
-  { id: 'tailwind',   tech: 'Tailwind CSS 4' as const,  title: 'Tailwind CSS 4',       desc: 'Utility-first, responsividade e dark mode',color: '#06b6d4' },
-  { id: 'shadcn',     tech: 'shadcn/ui' as const,       title: 'shadcn/ui',            desc: 'Componentes, formulários e tabelas',       color: '#a1a1aa' },
-  { id: 'supabase',   tech: 'Supabase' as const,        title: 'Supabase',             desc: 'PostgreSQL, auth e Row Level Security',    color: '#3ecf8e' },
-  { id: 'sketchain',  tech: 'Sketchain' as const,       title: 'Projeto Sketchain',    desc: 'Arquitetura real do zero ao deploy',       color: '#D4A574' },
-];
-
-const sequentialIds = lessons.sort((a, b) => a.order - b.order).slice(0, 10).map(l => l.id);
-const caseStudyLessons = getLessonsByTechnology('Sketchain');
-
-function statusIcon(completed: boolean, locked: boolean) {
-  if (completed) return '✅';
-  if (locked) return '🔒';
-  return '▶';
-}
+const DIAGNOSTIC_ID = 'diagnostic-ai';
 
 export default function Home({ onNavigate }: Props) {
-  const seqRef = useRef<HTMLDivElement>(null);
-  const csRef = useRef<HTMLDivElement>(null);
-  const { isCompleted, getProgressPercent } = useProgress();
+  // useProgress returns `completed` (not `completedLessons`) — alias it here
+  const { completed: completedLessons, completionByTrack } = useProgress();
+  const { latestFor } = useQuizStore();
 
-  function scroll(ref: React.RefObject<HTMLDivElement | null>, dir: 'left' | 'right') {
-    if (ref.current) ref.current.scrollBy({ left: dir === 'left' ? -280 : 280, behavior: 'smooth' });
-  }
+  const aiTrack = TRACKS.find((t) => t.id === 'ai')!;
+  const stackTrack = TRACKS.find((t) => t.id === 'stack')!;
+  const diagnosticDone = !!latestFor(DIAGNOSTIC_ID);
+
+  const stackStats = completionByTrack('stack');
+  const aiStats = completionByTrack('ai');
+
+  const continueLessons = useMemo(
+    () => allLessons.filter((l) => completedLessons.includes(l.id)).slice(0, 10),
+    [completedLessons],
+  );
+
+  const pillarStats = (pillarId: string) => {
+    const inPillar = allLessons.filter((l) => l.pillar === pillarId);
+    const done = inPillar.filter((l) => completedLessons.includes(l.id)).length;
+    return { count: inPillar.length, done };
+  };
 
   return (
-    <div style={{ background: 'var(--netflix-black)', minHeight: '100vh' }}>
-
-      {/* HERO */}
+    <div>
+      {/* 1 — HERO */}
       <section style={{
-        background: 'linear-gradient(135deg, #D4A574, #F4A261)',
-        textAlign: 'center',
-      }}
-      className="hero-section fade-in"
-      >
-        <h1 style={{
-          fontSize: 'clamp(32px, 8vw, 64px)',
-          fontWeight: 'bold',
-          color: '#fff',
-          marginBottom: '16px',
-          textShadow: '0 2px 8px rgba(0,0,0,0.3)',
-        }}>
-          Aprenda o Stack Sketchain
-        </h1>
-        <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', fontWeight: '500' }}>
-          Do Zero ao Sênior em 8–10 semanas
-        </p>
-      </section>
-
-      {/* TRILHA SEQUENCIAL */}
-      <section className="section-gap slide-in">
-        <h2 style={{ color: 'var(--netflix-light-gray)', fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '20px' }}>
-          Trilha Sequencial
-        </h2>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button onClick={() => scroll(seqRef, 'left')} style={arrowBtn}>‹</button>
-          <div ref={seqRef} style={scrollRow}>
-            {sequentialIds.map((lessonId, i) => {
-              const lesson = lessons.find(l => l.id === lessonId)!;
-              const done = isCompleted(lessonId);
-              const locked = i >= 5 && !isCompleted(sequentialIds[i - 1]);
-              return (
-                <div
-                  key={lessonId}
-                  onClick={() => !locked && onNavigate('lesson', { id: lessonId })}
-                  style={{ ...card, opacity: locked ? 0.5 : 1, cursor: locked ? 'not-allowed' : 'pointer' }}
-                >
-                  <span style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--sketchain-terracota)' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <p style={{ color: 'var(--netflix-light-gray)', fontSize: '0.85rem', marginTop: '8px', lineHeight: '1.4' }}>
-                    {lesson.title}
-                  </p>
-                  <span style={{ fontSize: '1.1rem', marginTop: '12px', display: 'block' }}>
-                    {statusIcon(done, locked)}
-                  </span>
-                  <div style={{ background: 'var(--netflix-gray)', height: '3px', borderRadius: '2px', marginTop: '10px' }}>
-                    <div style={{ background: 'var(--sketchain-terracota)', width: done ? '100%' : '0%', height: '100%', borderRadius: '2px', transition: 'width 300ms' }} />
-                  </div>
-                </div>
-              );
-            })}
+        position: 'relative', padding: 'var(--space-15) var(--space-6)',
+        background: 'linear-gradient(135deg, rgba(139,92,246,0.25), rgba(15,15,15,0.9))',
+        borderBottom: '1px solid var(--border-default)',
+      }}>
+        <div style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+          <Badge tone="ai"><Icon name="sparkle" size={14} /> Nova trilha</Badge>
+          <h1 style={{
+            fontFamily: 'var(--font-brand)', fontWeight: 800,
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'var(--text-primary)',
+            margin: 'var(--space-4) 0', letterSpacing: 'var(--tracking-display)', lineHeight: 1.1,
+          }}>
+            Engenharia de IA
+          </h1>
+          <p style={{ color: 'var(--text-primary)', fontSize: 'var(--text-body-lg)', maxWidth: 560 }}>
+            {aiTrack.tagline}
+          </p>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap', margin: 'var(--space-5) 0' }}>
+            {PILLARS.map((p) => <Badge key={p.id} tone="ai">{p.id}</Badge>)}
           </div>
-          <button onClick={() => scroll(seqRef, 'right')} style={arrowBtn}>›</button>
+          <div style={{ display: 'flex', gap: 'var(--space-3)', flexWrap: 'wrap' }}>
+            <Button variant="primary" size="lg" onClick={() => onNavigate(diagnosticDone ? 'diagnostic-result' : 'diagnostic')}>
+              <Icon name="sparkle" size={18} /> {diagnosticDone ? 'Ver diagnóstico' : 'Iniciar diagnóstico'}
+            </Button>
+            <Button variant="outline" size="lg" onClick={() => onNavigate('ai-track')}>
+              <Icon name="play" size={18} /> Ver trilha
+            </Button>
+          </div>
         </div>
       </section>
 
-      {/* POR TECNOLOGIA */}
-      <section className="section-gap-full">
-        <h2 style={{ color: 'var(--netflix-light-gray)', fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '20px' }}>
-          Por Tecnologia
-        </h2>
-        <div className="tech-grid">
-          {TECH_TRACKS.map(tech => {
-            const techLessons = getLessonsByTechnology(tech.tech);
-            const percent = getProgressPercent(techLessons.map(l => l.id));
-            const done = techLessons.filter(l => isCompleted(l.id)).length;
-            return (
-              <div
-                key={tech.id}
-                onClick={() => onNavigate('tech-path', { id: tech.id })}
-                style={{ ...card, cursor: 'pointer', borderLeft: `4px solid ${tech.color}`, padding: '20px' }}
-              >
-                <h3 style={{ color: 'var(--netflix-light-gray)', fontSize: '1rem', fontWeight: 'bold', marginBottom: '6px' }}>
-                  {tech.title}
-                </h3>
-                <p style={{ color: 'var(--netflix-gray)', fontSize: '0.8rem', marginBottom: '12px', lineHeight: '1.4' }}>
-                  {tech.desc}
-                </p>
-                <p style={{ color: 'var(--netflix-gray)', fontSize: '0.75rem', marginBottom: '6px' }}>
-                  {done}/{techLessons.length} aulas completas
-                </p>
-                <div style={{ background: 'var(--netflix-gray)', height: '3px', borderRadius: '2px' }}>
-                  <div style={{ background: tech.color, width: `${percent}%`, height: '100%', borderRadius: '2px', transition: 'width 300ms ease-in-out' }} />
-                </div>
+      {/* 2 — CONTINUAR */}
+      {continueLessons.length > 0 && (
+        <section className="section-gap" style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+          <h2 style={sectionTitle}>Continuar assistindo</h2>
+          <div className="row-scroll">
+            {continueLessons.map((l) => (
+              <div key={l.id} onClick={() => onNavigate(l.track === 'ai' ? 'ai-lesson' : 'lesson', { id: l.id })}
+                className="card-hover"
+                style={{ width: 240, background: 'var(--surface-card)', borderRadius: 'var(--radius-lg)',
+                  border: '1px solid var(--border-default)', padding: 'var(--space-4)', cursor: 'pointer' }}>
+                <Badge tone={l.track === 'ai' ? 'ai' : 'terracota'}>{l.track === 'ai' ? 'IA' : 'Stack'}</Badge>
+                <h4 style={{ color: 'var(--text-primary)', fontSize: 'var(--text-h3)', marginTop: 8 }}>{l.title}</h4>
+                <span style={{ color: 'var(--text-muted)', fontSize: 'var(--text-xs)' }}>{l.technology}</span>
               </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 3 — SUAS TRILHAS */}
+      <section className="section-gap" style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        <h2 style={sectionTitle}>Suas trilhas</h2>
+        <div className="tracks-grid">
+          <TrackPoster track={stackTrack} progressPct={stackStats.pct} done={stackStats.done} total={stackStats.total}
+            onOpen={() => onNavigate('tech-path', { id: 'React 19' })} />
+          <TrackPoster track={aiTrack} progressPct={aiStats.pct} done={aiStats.done} total={aiStats.total}
+            diagnosticPending={!diagnosticDone} onOpen={() => onNavigate('ai-track')} />
+        </div>
+      </section>
+
+      {/* 4 — PILARES IA */}
+      <section className="section-gap" style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+          <h2 style={sectionTitle}>Pilares — Engenharia de IA</h2>
+          <Button variant="ghost" size="sm" onClick={() => onNavigate(diagnosticDone ? 'diagnostic-result' : 'diagnostic')}>
+            <Icon name="sparkle" size={16} /> {diagnosticDone ? 'Refazer diagnóstico' : 'Iniciar diagnóstico'}
+          </Button>
+        </div>
+        <div className="pillars-grid" style={{ marginTop: 'var(--space-4)' }}>
+          {PILLARS.map((p, i) => {
+            const st = pillarStats(p.id);
+            const prevDone = i === 0 ? true : (() => { const prev = PILLARS[i - 1]; const ps = pillarStats(prev.id); return ps.count > 0 && ps.done === ps.count; })();
+            return (
+              <PillarCard key={p.id} pillar={p} lessonCount={st.count} done={st.done}
+                locked={!prevDone} onOpen={() => onNavigate('ai-track', { pillar: p.id })} />
             );
           })}
         </div>
       </section>
 
-      {/* ESTUDO DE CASO */}
-      <section className="section-gap-full" style={{ paddingBottom: '60px' }}>
-        <h2 style={{ color: 'var(--netflix-light-gray)', fontSize: '1.3rem', fontWeight: 'bold', marginBottom: '20px' }}>
-          Estudo de Caso — Sketchain
-        </h2>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <button onClick={() => scroll(csRef, 'left')} style={arrowBtn}>‹</button>
-          <div ref={csRef} style={scrollRow}>
-            {caseStudyLessons.map((lesson, i) => {
-              const done = isCompleted(lesson.id);
-              return (
-                <div
-                  key={lesson.id}
-                  onClick={() => onNavigate('lesson', { id: lesson.id })}
-                  style={{ ...card, cursor: 'pointer' }}
-                >
-                  <span style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--sketchain-gold)' }}>
-                    {String(i + 1).padStart(2, '0')}
-                  </span>
-                  <p style={{ color: 'var(--netflix-light-gray)', fontSize: '0.85rem', marginTop: '8px', lineHeight: '1.4' }}>
-                    {lesson.title}
-                  </p>
-                  <span style={{ fontSize: '1.1rem', marginTop: '12px', display: 'block' }}>{done ? '✅' : '▶'}</span>
-                  <div style={{ background: 'var(--netflix-gray)', height: '3px', borderRadius: '2px', marginTop: '10px' }}>
-                    <div style={{ background: 'var(--sketchain-gold)', width: done ? '100%' : '0%', height: '100%', borderRadius: '2px', transition: 'width 300ms' }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-          <button onClick={() => scroll(csRef, 'right')} style={arrowBtn}>›</button>
+      {/* 5 — CONHECIMENTO CONSOLIDADO */}
+      <section className="section-gap-full" style={{ maxWidth: 'var(--content-max)', margin: '0 auto' }}>
+        <h2 style={sectionTitle}>Conhecimento consolidado</h2>
+        <div style={{ display: 'flex', gap: 'var(--space-8)', flexWrap: 'wrap', marginTop: 'var(--space-4)' }}>
+          <KnowledgeRing label="Stack Sketchain" pct={stackStats.pct} color="var(--accent-primary)" />
+          <KnowledgeRing label="Engenharia de IA" pct={aiStats.pct} color="var(--color-ai)" />
+          <Button variant="outline" onClick={() => onNavigate('profile')}>Ver perfil completo</Button>
         </div>
       </section>
-
     </div>
   );
 }
 
-const card: React.CSSProperties = {
-  background: 'var(--netflix-dark-gray)',
-  border: '1px solid #2a2a2a',
-  borderRadius: '8px',
-  padding: '16px',
-  minWidth: '180px',
-  flexShrink: 0,
-  transition: 'transform 300ms ease-in-out, box-shadow 300ms ease-in-out',
-};
+function KnowledgeRing({ label, pct, color }: { label: string; pct: number; color: string }) {
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{
+        width: 110, height: 110, borderRadius: '50%',
+        background: `conic-gradient(${color} ${pct * 3.6}deg, var(--color-border) 0deg)`,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <div style={{ width: 84, height: 84, borderRadius: '50%', background: 'var(--bg-app)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          color: 'var(--text-primary)', fontFamily: 'var(--font-brand)', fontWeight: 700, fontSize: 'var(--text-h2)' }}>
+          {pct}%
+        </div>
+      </div>
+      <span style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', display: 'block', marginTop: 8 }}>{label}</span>
+    </div>
+  );
+}
 
-const scrollRow: React.CSSProperties = {
-  display: 'flex',
-  gap: '12px',
-  overflowX: 'auto',
-  scrollbarWidth: 'none',
-  flex: 1,
-  paddingBottom: '4px',
-};
-
-const arrowBtn: React.CSSProperties = {
-  background: 'var(--netflix-dark-gray)',
-  border: '1px solid var(--netflix-gray)',
-  borderRadius: '50%',
-  width: '36px',
-  height: '36px',
-  color: 'var(--netflix-light-gray)',
-  cursor: 'pointer',
-  fontSize: '1.2rem',
-  flexShrink: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+const sectionTitle: React.CSSProperties = {
+  fontFamily: 'var(--font-brand)', fontSize: 'var(--text-h2)', fontWeight: 700,
+  color: 'var(--text-primary)', marginBottom: 'var(--space-4)',
 };
