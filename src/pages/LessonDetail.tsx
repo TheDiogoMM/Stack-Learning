@@ -3,7 +3,12 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import CodeEditor from '@/components/CodeEditor';
 import VideoEmbed from '@/components/VideoEmbed';
 import { useProgress } from '@/hooks/useProgress';
-import { getLessonById, getLessonsByTechnology } from '@/data/lessons';
+import { getLessonsByTechnology, allLessons } from '@/data/lessons';
+import LessonQuiz from '@/components/LessonQuiz';
+import { useQuizStore } from '@/providers/QuizProvider';
+import { scoreDiagnostic } from '@/lib/scoring';
+import { diagnosticQuestions } from '@/data/quizzes';
+import type { Pillar } from '@/data/lessons';
 
 interface Props {
   lessonId: string;
@@ -14,7 +19,7 @@ interface Props {
 type Tab = 'conteudo' | 'mini-lab' | 'recursos';
 
 export default function LessonDetail({ lessonId, onNavigate }: Props) {
-  const lesson = getLessonById(lessonId) ?? getLessonById('react-intro')!;
+  const lesson = allLessons.find((l) => l.id === lessonId) ?? allLessons.find((l) => l.id === 'react-intro')!;
   const trilhaIds = getLessonsByTechnology(lesson.technology).map(l => l.id);
   const [tab, setTab] = useState<Tab>('conteudo');
 
@@ -35,6 +40,19 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
   const { isCompleted, isBookmarked, markComplete, unmarkComplete, toggleBookmark, getProgressPercent } = useProgress();
 
   const completed = isCompleted(lesson.id);
+  const [quizOpen, setQuizOpen] = useState(false);
+  const { latestFor } = useQuizStore();
+
+  const priorScore: number | null = (() => {
+    const prev = latestFor(lesson?.id ?? '');
+    if (prev) return prev.score;
+    const diag = latestFor('diagnostic-ai');
+    if (diag && lesson?.pillar) {
+      return scoreDiagnostic(diagnosticQuestions, diag.answers).byPillar[lesson.pillar as Pillar];
+    }
+    return null;
+  })();
+
   const bookmarked = isBookmarked(lesson.id);
   const percent = getProgressPercent(trilhaIds);
   const doneCount = trilhaIds.filter(id => isCompleted(id)).length;
@@ -158,7 +176,7 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
           {/* Ações */}
           <div style={sideCard}>
             <button
-              onClick={() => completed ? unmarkComplete(lesson.id) : markComplete(lesson.id)}
+              onClick={() => completed ? unmarkComplete(lesson.id) : setQuizOpen(true)}
               style={{
                 width: '100%',
                 background: completed ? '#27ae60' : 'var(--sketchain-terracota)',
@@ -234,6 +252,17 @@ export default function LessonDetail({ lessonId, onNavigate }: Props) {
           )}
         </div>
       </div>
+
+      {quizOpen && (
+        <LessonQuiz
+          lessonId={lesson.id}
+          lessonTitle={lesson.title}
+          pillar={lesson.pillar}
+          priorScore={priorScore}
+          onPass={() => { markComplete(lesson.id); setQuizOpen(false); }}
+          onClose={() => setQuizOpen(false)}
+        />
+      )}
     </div>
   );
 }
