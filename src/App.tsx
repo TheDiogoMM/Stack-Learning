@@ -1,9 +1,10 @@
-import { useState, lazy, Suspense, useCallback } from 'react';
+import { useState, lazy, Suspense, useCallback, useEffect } from 'react';
 import './styles/globals.css';
 import { useAuth } from '@/hooks/useAuth';
 import Header from '@/components/Header';
 import { QuizProvider } from '@/providers/QuizProvider';
 import OfflineBanner from '@/components/OfflineBanner';
+import { supabase } from '@/lib/supabase';
 
 const Home        = lazy(() => import('@/pages/Home'));
 const Login       = lazy(() => import('@/pages/Login'));
@@ -14,10 +15,11 @@ const LessonDetail = lazy(() => import('@/pages/LessonDetail'));
 const AITrackPage      = lazy(() => import('@/pages/AITrackPage'));
 const DiagnosticScreen = lazy(() => import('@/pages/DiagnosticScreen'));
 const DiagnosticResult = lazy(() => import('@/pages/DiagnosticResult'));
+const SetPassword      = lazy(() => import('@/pages/SetPassword'));
 
 type Page =
   | 'home' | 'login' | 'register' | 'profile' | 'lesson' | 'tech-path'
-  | 'ai-track' | 'ai-lesson' | 'diagnostic' | 'diagnostic-result';
+  | 'ai-track' | 'ai-lesson' | 'diagnostic' | 'diagnostic-result' | 'set-password';
 
 function PageLoader() {
   return (
@@ -60,12 +62,25 @@ export default function App() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Detecta link de recuperação de senha enviado pelo Supabase
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setPage('set-password');
+        setPageParams({});
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
   if (loading) return <AppLoader />;
 
-  if (!user) {
+  if (!user || page === 'set-password') {
     return (
       <Suspense fallback={<AppLoader />}>
-        {page === 'register'
+        {page === 'set-password'
+          ? <SetPassword onNavigate={navigate} />
+          : page === 'register'
           ? <Register onNavigate={navigate} />
           : <Login onNavigate={navigate} />
         }
