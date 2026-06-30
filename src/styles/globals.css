@@ -1,12 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
 :root {
-  --netflix-black: #0F0F0F;
-  --netflix-dark-gray: #1A1A1A;
-  --netflix-gray: #808080;
-  --netflix-light-gray: #E5E5E5;
-  --sketchain-terracota: #D4A574;
-  --sketchain-gold: #F4A261;
+  /* ── Base neutrals (Netflix-dark) ── */
+  --color-black: #0F0F0F;
+  --color-dark-gray: #1A1A1A;
+  --color-gray: #808080;
+  --color-light-gray: #E5E5E5;
+  --color-border: #2A2A2A;
+  --color-elevated: #1E1E1E;
+  --color-white: #FFFFFF;
+
+  /* ── Brand accents ── */
+  --color-terracota: #D4A574;
+  --color-gold: #F4A261;
+  --color-terracota-soft: rgba(212, 165, 116, 0.13);
+  --color-gold-soft: rgba(244, 162, 97, 0.13);
+  --brand-gradient: linear-gradient(135deg, #D4A574, #F4A261);
+
+  /* ── AI track accents ── */
+  --color-ai: #8B5CF6;
+  --color-ai-soft: rgba(139, 92, 246, 0.13);
+  --ai-gradient: linear-gradient(135deg, #8B5CF6, #6366F1);
+  --pillar-fundamentos: #8B5CF6;
+  --pillar-integracao: #60A5FA;
+  --pillar-autonomia: #34D399;
+  --pillar-producao: #FB923C;
+
+  /* ── Semantic / status ── */
+  --color-success: #27AE60;
+  --color-success-bright: #3ECF8E;
+  --color-warning: #F4A261;
+  --color-danger: #E74C3C;
+
+  /* ── Difficulty ── */
+  --color-level-beginner: #3ECF8E;
+  --color-level-intermediate: #F4A261;
+  --color-level-advanced: #E74C3C;
+
+  /* ── Tech accents ── */
+  --tech-react: #61DAFB;
+  --tech-nextjs: #FFFFFF;
+  --tech-typescript: #3178C6;
+  --tech-tailwind: #06B6D4;
+  --tech-shadcn: #A1A1AA;
+  --tech-supabase: #3ECF8E;
+  --tech-sketchain: #D4A574;
+
+  /* ── Semantic aliases ── */
+  --bg-app: var(--color-black);
+  --surface-card: var(--color-dark-gray);
+  --surface-code: var(--color-elevated);
+  --border-default: var(--color-border);
+  --border-strong: var(--color-gray);
+  --text-primary: var(--color-light-gray);
+  --text-muted: var(--color-gray);
+  --text-heading: var(--color-terracota);
+  --text-link: var(--color-gold);
+  --accent-primary: var(--color-terracota);
+  --accent-secondary: var(--color-gold);
+  --focus-ring: var(--color-terracota);
+
+  /* ── Typography ── */
+  --font-brand: 'Raleway', Arial, system-ui, sans-serif;
+  --font-body: Arial, 'Raleway', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Cascadia Code', ui-monospace, Consolas, monospace;
+
+  /* ── Spacing / radius / motion ── */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-15: 60px;
+  --radius-sm: 4px; --radius-md: 6px; --radius-lg: 8px; --radius-full: 9999px;
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --container-max: 1280px; --content-max: 1200px;
+  --ease-standard: ease-in-out; --ease-out: ease-out;
+  --duration-fast: 200ms; --duration-base: 300ms; --hover-lift-scale: 1.02;
+
+  /* ── Back-compat aliases (so un-migrated inline styles keep working) ── */
+  --netflix-black: var(--bg-app);
+  --netflix-dark-gray: var(--surface-card);
+  --netflix-gray: var(--text-muted);
+  --netflix-light-gray: var(--text-primary);
+  --sketchain-terracota: var(--accent-primary);
+  --sketchain-gold: var(--accent-secondary);
 }
 
 /* ── Reset ─────────────────────────────────────────── */
@@ -23,7 +99,7 @@ html {
 body {
   background-color: var(--netflix-black);
   color: var(--netflix-light-gray);
-  font-family: Arial, Raleway, sans-serif;
+  font-family: var(--font-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
@@ -125,3 +201,32 @@ input:focus { outline: none; border-color: var(--sketchain-terracota) !important
   .section-gap      { padding: 40px 40px 0; }
   .section-gap-full { padding: 40px 40px; }
 }
+
+/* ── Netflix carousels ── */
+.row-scroll {
+  display: flex;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: var(--space-2);
+  scrollbar-width: thin;
+}
+.row-scroll > * { scroll-snap-align: start; flex: 0 0 auto; }
+
+/* ── Track poster grid ── */
+.tracks-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 640px) { .tracks-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ── Pillars grid (2x2 mobile, 4x1 desktop) ── */
+.pillars-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+@media (min-width: 1024px) { .pillars-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* ── Mono code face ── */
+code, pre, .mono { font-family: var(--font-mono); }
+
+/* ── Visibility helpers ── */
+.hide-mobile { display: none; }
+@media (min-width: 640px) { .hide-mobile { display: revert; } }
+.only-mobile { display: revert; }
+@media (min-width: 640px) { .only-mobile { display: none; } }
