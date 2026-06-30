@@ -12,6 +12,7 @@ interface AuthContext extends AuthState {
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ ok: boolean }>;
 }
 
 export const AuthContext = createContext<AuthContext>({
@@ -21,6 +22,7 @@ export const AuthContext = createContext<AuthContext>({
   login: async () => {},
   register: async () => {},
   logout: async () => {},
+  resetPassword: async () => ({ ok: false }),
 });
 
 export function useAuth() {
@@ -62,5 +64,14 @@ export function useAuthProvider(): AuthContext {
     await supabase.auth.signOut();
   }
 
-  return { user, loading, error, login, register, logout };
+  async function resetPassword(email: string): Promise<{ ok: boolean }> {
+    setError(null);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/`,
+    });
+    if (error) { setError(error.message); return { ok: false }; }
+    return { ok: true };
+  }
+
+  return { user, loading, error, login, register, logout, resetPassword };
 }
