@@ -66,6 +66,16 @@
   --font-body: Arial, 'Raleway', system-ui, sans-serif;
   --font-mono: 'Fira Code', 'Cascadia Code', ui-monospace, Consolas, monospace;
 
+  /* ── Type scale ── */
+  --text-display: 64px;
+  --text-h1: 29px;
+  --text-h2: 21px;
+  --text-h3: 16px;
+  --text-body-lg: 19px;
+  --text-body: 15px;
+  --text-sm: 14px;
+  --text-xs: 12px;
+
   /* ── Spacing / radius / motion ── */
   --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
   --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-15: 60px;
