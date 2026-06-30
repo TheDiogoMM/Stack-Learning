@@ -1,5 +1,9 @@
-export type Technology = 'React 19' | 'Next.js 15.5' | 'TypeScript' | 'Tailwind CSS 4' | 'shadcn/ui' | 'Supabase' | 'Sketchain';
+export type Technology =
+  | 'React 19' | 'Next.js 15.5' | 'TypeScript' | 'Tailwind CSS 4'
+  | 'shadcn/ui' | 'Supabase' | 'Sketchain' | 'Engenharia de IA';
 export type Difficulty = 'Iniciante' | 'Intermediário' | 'Avançado';
+export type Pillar = 'Fundamentos' | 'Integração' | 'Autonomia' | 'Produção';
+export type TrackId = 'stack' | 'ai';
 
 export interface YoutubeVideo {
   title: string;
@@ -22,7 +26,12 @@ export interface Lesson {
   prerequisites?: string[];
   tags?: string[];
   nextLesson?: { id: string; title: string };
+  track?: TrackId;          // defaults to 'stack' when undefined
+  pillar?: Pillar;          // AI track only
+  pillarOrder?: number;     // 1-based position within the pillar
 }
+
+import { aiLessons } from './aiLessons';
 
 export const lessons: Lesson[] = [
   // ─── REACT 19 ────────────────────────────────────────────────────────────
@@ -2596,3 +2605,6 @@ export function getProgressPercent(completed: string[], tech?: Technology): numb
   const done = pool.filter(l => completed.includes(l.id)).length;
   return Math.round((done / pool.length) * 100);
 }
+
+// ─── Trilha de IA (importada) ───────────────────────────────────────────────
+export const allLessons: Lesson[] = [...lessons, ...aiLessons];
