@@ -58,10 +58,12 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     const rec: QuizRecord = { ...r, takenAt };
     setResults((prev) => { const next = [rec, ...prev]; writeLocal(next); return next; });
     if (user) {
-      await supabase.from('quiz_results').insert({
+      const { error } = await supabase.from('quiz_results').insert({
         user_id: user.id, lesson_id: r.lessonId, quiz_type: r.quizType,
         pillar: r.pillar ?? null, score: r.score, answers: r.answers,
+        taken_at: takenAt,
       });
+      if (error) console.error('[QuizProvider] saveResult insert failed:', error.message);
     }
   }, [user]);
 

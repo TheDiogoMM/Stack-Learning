@@ -18,6 +18,7 @@ export interface UseQuiz {
 
 /** Drives a single lesson quiz: select → reveal → next, computing the final score. */
 export function useQuiz(questions: QuizQuestion[]): UseQuiz {
+  if (questions.length === 0) throw new Error('useQuiz requires at least one question');
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [revealed, setRevealed] = useState(false);
@@ -42,6 +43,6 @@ export function useQuiz(questions: QuizQuestion[]): UseQuiz {
 
   return {
     index, current, total: questions.length, answers, revealed, isLast,
-    selected: answers[current?.id], select, next, score, finished,
+    selected: answers[current.id], select, next, score, finished,
   };
 }

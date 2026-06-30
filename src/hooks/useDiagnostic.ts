@@ -31,7 +31,10 @@ export function useDiagnostic(): UseDiagnostic {
   }, [current]);
 
   const prev = useCallback(() => setIndex((i) => Math.max(0, i - 1)), []);
-  const next = useCallback(() => setIndex((i) => Math.min(questions.length - 1, i + 1)), [questions.length]);
+  const next = useCallback(() => {
+    if (answers[current.id] === undefined) return;
+    setIndex((i) => Math.min(questions.length - 1, i + 1));
+  }, [answers, current.id, questions.length]);
 
   const result = useMemo(() => {
     const base = scoreDiagnostic(questions, answers);
