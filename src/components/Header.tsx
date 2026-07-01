@@ -23,7 +23,7 @@ const Header = memo(function Header({ onNavigate }: Props) {
       position: 'sticky', top: 0, zIndex: 100, backdropFilter: 'blur(8px)',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-8)' }}>
-        <Logo height={26} onClick={() => onNavigate('home')} />
+        <Logo height={38} onClick={() => onNavigate('home')} style={{ filter: 'drop-shadow(0 0 8px rgba(212,165,116,0.35))' }} />
         <nav className="hide-mobile header-nav" style={{ alignItems: 'center' }}>
           {NAV.map((n) => (
             <button key={n.label} onClick={() => onNavigate(n.page, n.params)} style={navStyle}>
