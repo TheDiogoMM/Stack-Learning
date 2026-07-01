@@ -71,7 +71,9 @@ export default function SetPassword({ onNavigate }: Props) {
         alignItems: 'center',
         gap: 'var(--space-6)',
       }}>
-        <Logo variant="lockup" height={52} style={{ filter: 'drop-shadow(0 0 12px rgba(212,165,116,0.4))' }} />
+        <div style={{ padding: 'var(--space-4) 0 var(--space-2)' }}>
+          <Logo variant="lockup" height={72} style={{ filter: 'drop-shadow(0 0 20px rgba(212,165,116,0.6)) drop-shadow(0 0 6px rgba(212,165,116,0.3))' }} />
+        </div>
 
         {done ? (
           <div style={{ width: '100%', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'var(--space-3)' }}>

@@ -39,9 +39,72 @@ export const lessonQuizzes: Record<string, LessonQuiz> = {
   'ai-fundamentos-o-que-e-um-llm': {
     lessonId: 'ai-fundamentos-o-que-e-um-llm',
     questions: [
-      { id: 'q1', prompt: 'Um LLM gera texto ao:', options: ['Copiar de um banco fixo', 'Prever o próximo token', 'Aplicar regras manuais', 'Compilar código'], correctIndex: 1, explanation: 'Predição probabilística do próximo token.' },
-      { id: 'q2', prompt: '"Parâmetros" de um modelo são:', options: ['As perguntas do usuário', 'Os pesos aprendidos no treino', 'Os tokens de saída', 'As chaves de API'], correctIndex: 1, explanation: 'Parâmetros são os pesos ajustados durante o treinamento.' },
-      { id: 'q3', prompt: 'Temperatura controla:', options: ['O tamanho do modelo', 'A aleatoriedade da geração', 'O custo por token', 'O idioma'], correctIndex: 1, explanation: 'Temperatura ajusta o quão aleatória é a amostragem.' },
+      { id: 'llm-1', prompt: 'Um LLM gera texto ao:', options: ['Copiar de um banco de dados fixo', 'Prever o próximo token probabilisticamente', 'Aplicar regras gramaticais codificadas', 'Compilar linguagem natural em código'], correctIndex: 1, explanation: 'LLMs modelam a distribuição de probabilidade sobre o vocabulário e amostram o próximo token iterativamente.' },
+      { id: 'llm-2', prompt: 'Temperatura 0.0 em um LLM produz:', options: ['Resposta aleatória diferente a cada chamada', 'Sempre o token mais provável (determinístico)', 'Erro de configuração', 'Saída mais longa'], correctIndex: 1, explanation: 'Temperatura zero remove aleatoriedade — o modelo sempre escolhe o token de maior probabilidade.' },
+      { id: 'llm-3', prompt: 'O que NÃO é verdadeiro sobre LLMs por padrão?', options: ['Geram texto token a token', 'Têm acesso à internet em tempo real', 'Aprenderam com grandes volumes de texto', 'Usam parâmetros ajustados no treinamento'], correctIndex: 1, explanation: 'Por padrão, LLMs não têm acesso à internet. Acesso à web requer ferramentas externas (function calling/MCP).' },
+    ],
+  },
+
+  'ai-fundamentos-a-arquitetura-transformer': {
+    lessonId: 'ai-fundamentos-a-arquitetura-transformer',
+    questions: [
+      { id: 'tfm-1', prompt: 'A grande vantagem do Transformer sobre RNNs é:', options: ['Usar menos memória por token', 'Processar todos os tokens em paralelo via attention', 'Não precisar de treinamento', 'Ter vocabulário menor'], correctIndex: 1, explanation: 'O self-attention processa toda a sequência simultaneamente, viabilizando treinamento paralelo em GPU em escala.' },
+      { id: 'tfm-2', prompt: 'Modelos geradores como GPT e Claude são do tipo:', options: ['Encoder-only', 'Encoder-Decoder', 'Decoder-only', 'CNN'], correctIndex: 2, explanation: 'LLMs modernos de chat usam arquitetura decoder-only: recebem um prompt e geram tokens autoregressivamente.' },
+      { id: 'tfm-3', prompt: 'O Feed-Forward Network (FFN) em cada bloco Transformer:', options: ['Realiza o self-attention entre tokens', 'Armazena conhecimento factual e transforma por token', 'Faz a tokenização do texto', 'Calcula a loss de treinamento'], correctIndex: 1, explanation: 'A FFN (duas camadas lineares com ativação não-linear) é aplicada independentemente por token e "armazena" grande parte do conhecimento factual do modelo.' },
+    ],
+  },
+
+  'ai-fundamentos-tokenizacao': {
+    lessonId: 'ai-fundamentos-tokenizacao',
+    questions: [
+      { id: 'tok-1', prompt: 'Byte-Pair Encoding (BPE) divide texto em:', options: ['Palavras completas sempre', 'Sub-palavras aprendidas estatisticamente', 'Caracteres individuais', 'Sentenças inteiras'], correctIndex: 1, explanation: 'BPE aprende um vocabulário de sub-palavras frequentes, permitindo representar qualquer texto com tokens conhecidos.' },
+      { id: 'tok-2', prompt: 'Por que texto em português usa mais tokens que em inglês?', options: ['Português tem mais vogais', 'Morfologia mais rica gera sub-palavras menos frequentes no vocabulário', 'Modelos são treinados em menos português', 'Tokenizers rejeitam acentos'], correctIndex: 1, explanation: 'A morfologia flexional do português (conjugações, plurais, acentos) cria mais variações de sub-palavras, aumentando o custo em tokens.' },
+      { id: 'tok-3', prompt: 'O que são tokens especiais como <|system|>?', options: ['Erros de tokenização', 'Delimitadores de papel que estruturam a conversa', 'Tokens de alto custo cobrados extra', 'Tokens ignorados pelo modelo'], correctIndex: 1, explanation: 'Tokens especiais são inseridos pelo template de chat para delimitar system prompt, user e assistant, estruturando o contexto.' },
+    ],
+  },
+
+  'ai-fundamentos-embeddings-e-espaco-vetorial': {
+    lessonId: 'ai-fundamentos-embeddings-e-espaco-vetorial',
+    questions: [
+      { id: 'emb-1', prompt: 'Dois embeddings próximos no espaço vetorial indicam:', options: ['Mesmo número de tokens', 'Alta similaridade semântica', 'Mesmo idioma de origem', 'Custo de API igual'], correctIndex: 1, explanation: 'A proximidade geométrica entre embeddings representa similaridade de significado — o princípio central de como busca semântica funciona.' },
+      { id: 'emb-2', prompt: 'Similaridade de cosseno entre embeddings mede:', options: ['A diferença de magnitude dos vetores', 'O ângulo entre os vetores (independente do tamanho)', 'O número de dimensões em comum', 'O custo de geração do embedding'], correctIndex: 1, explanation: 'Cosseno mede o ângulo entre vetores, ignorando magnitude — ideal para comparar embeddings que podem ter normas diferentes.' },
+      { id: 'emb-3', prompt: 'Um banco vetorial (pgvector, Pinecone) é usado para:', options: ['Armazenar o modelo em si', 'Busca eficiente de vizinhos mais próximos em alta dimensão', 'Fazer fine-tuning', 'Gerenciar tokens de API'], correctIndex: 1, explanation: 'Bancos vetoriais implementam ANN (Approximate Nearest Neighbor) para encontrar os embeddings mais similares em milissegundos mesmo em milhões de vetores.' },
+    ],
+  },
+
+  'ai-fundamentos-mecanismo-de-attention': {
+    lessonId: 'ai-fundamentos-mecanismo-de-attention',
+    questions: [
+      { id: 'att-1', prompt: 'No self-attention, Query, Key e Value são:', options: ['Três bases de dados separadas', 'Projeções lineares aprendidas de cada embedding de token', 'Camadas de normalização', 'Parâmetros fixos durante a inferência'], correctIndex: 1, explanation: 'Q, K e V são obtidos multiplicando o embedding do token por matrizes de pesos aprendidos — é o coração do mecanismo de atenção.' },
+      { id: 'att-2', prompt: 'Multi-head attention usa múltiplas cabeças para:', options: ['Reduzir o custo computacional à metade', 'Aprender diferentes tipos de relações entre tokens em paralelo', 'Processar sequências mais longas', 'Substituir o feed-forward network'], correctIndex: 1, explanation: 'Cada cabeça aprende um padrão diferente (sintaxe, semântica, correferência etc.), e seus outputs são concatenados.' },
+      { id: 'att-3', prompt: 'Causal (masked) attention em modelos geradores garante que:', options: ['O modelo nunca erre', 'Cada token só veja tokens anteriores, não futuros', 'Todos os tokens recebam peso igual', 'O contexto seja comprimido'], correctIndex: 1, explanation: 'O masking aplica -∞ nas posições futuras antes do softmax, garantindo que a geração seja autoregressiva e não "trapaceie" vendo o futuro.' },
+    ],
+  },
+
+  'ai-fundamentos-context-window-e-limites': {
+    lessonId: 'ai-fundamentos-context-window-e-limites',
+    questions: [
+      { id: 'ctx-1', prompt: 'O context window inclui:', options: ['Apenas a pergunta do usuário', 'System prompt + histórico + documentos + pergunta + resposta', 'Só as mensagens do assistente', 'Apenas o system prompt'], correctIndex: 1, explanation: 'Tudo que entra e sai na chamada consome tokens do context window — system prompt, histórico, contexto RAG, pergunta e a própria resposta gerada.' },
+      { id: 'ctx-2', prompt: 'O "Lost in the Middle" problem refere-se a:', options: ['Tokens perdidos por erro de rede', 'LLMs tendem a ignorar informação no meio de contextos longos', 'Modelos que esquecem o system prompt', 'Context window menor que o esperado'], correctIndex: 1, explanation: 'Pesquisas mostram que LLMs prestam mais atenção ao início e ao fim do contexto, podendo ignorar informação no meio.' },
+      { id: 'ctx-3', prompt: 'Tokens de saída costumam custar em relação a tokens de entrada:', options: ['Igual', 'Mais baratos', 'Mais caros (tipicamente 3–5×)', 'Grátis em APIs modernas'], correctIndex: 2, explanation: 'Na maioria das APIs, output tokens custam significativamente mais que input tokens — ex: Claude 3.5 Sonnet cobra $3/MTok entrada e $15/MTok saída.' },
+    ],
+  },
+
+  'ai-fundamentos-introducao-a-fine-tuning': {
+    lessonId: 'ai-fundamentos-introducao-a-fine-tuning',
+    questions: [
+      { id: 'ft-1', prompt: 'Antes de fazer fine-tuning, você deve tentar:', options: ['Aumentar a temperatura', 'Prompt engineering, few-shot e RAG primeiro', 'Sempre treinar do zero', 'Reduzir o context window'], correctIndex: 1, explanation: 'Fine-tuning tem custo e complexidade. Prompt engineering bem feito e RAG resolvem a maioria dos casos sem precisar retreinar.' },
+      { id: 'ft-2', prompt: 'LoRA (Low-Rank Adaptation) reduz o custo de fine-tuning ao:', options: ['Usar um dataset menor', 'Treinar apenas matrizes de baixo rank adicionadas, não os pesos originais', 'Remover camadas de atenção', 'Desativar o feed-forward'], correctIndex: 1, explanation: 'LoRA insere matrizes de atualização de baixo rank nas camadas de atenção, treinando ~0.1% dos parâmetros originais com qualidade comparável.' },
+      { id: 'ft-3', prompt: 'Para fine-tuning supervisionado, o formato de dados precisa de:', options: ['Apenas o texto de saída desejada', 'Pares input → output de alta qualidade', 'Os pesos do modelo base', 'Tokens especiais removidos'], correctIndex: 1, explanation: 'Fine-tuning supervisionado requer exemplos com pares de entrada e saída esperada — o modelo aprende a replicar esse comportamento.' },
+    ],
+  },
+
+  'ai-fundamentos-casos-de-uso-de-llms': {
+    lessonId: 'ai-fundamentos-casos-de-uso-de-llms',
+    questions: [
+      { id: 'uso-1', prompt: 'Para qual caso LLMs entregam menos valor sozinhos?', options: ['Sumarização de documentos longos', 'Geração de rascunhos de texto', 'Aritmética precisa com números grandes', 'Extração estruturada de dados em texto'], correctIndex: 2, explanation: 'LLMs são ruins para aritmética confiável — use ferramentas/código para cálculos. Para texto e linguagem, são excelentes.' },
+      { id: 'uso-2', prompt: 'Extração estruturada (texto → JSON) com LLM é mais confiável quando:', options: ['A temperatura é alta', 'Você usa function calling / structured outputs com schema definido', 'O modelo é pequeno', 'O prompt não tem exemplos'], correctIndex: 1, explanation: 'Function calling / structured outputs forçam o modelo a produzir JSON válido seguindo um schema, eliminando alucinações de formato.' },
+      { id: 'uso-3', prompt: 'Ao avaliar viabilidade de um projeto com LLM, a primeira pergunta deve ser:', options: ['Qual modelo usar?', 'Qual é o custo de um erro nesta tarefa?', 'Quantos tokens o modelo suporta?', 'Qual temperatura usar?'], correctIndex: 1, explanation: 'O custo de erro define a tolerância do sistema: se erros são críticos, você precisa de guardrails, revisão humana, ou outra abordagem.' },
     ],
   },
 };
