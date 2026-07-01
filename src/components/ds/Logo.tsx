@@ -7,9 +7,9 @@ interface Props {
   className?: string;
 }
 
-/** Brand logo from /ds/logo.svg (full lockup) or /ds/logo-symbol.svg (mark only). */
+/** Brand logo from /ds/logo-lockup.png (full lockup) or /ds/logo-symbol.png (mark only). */
 const Logo = memo(function Logo({ variant = 'lockup', height = 28, onClick, className }: Props) {
-  const src = variant === 'symbol' ? '/ds/logo-symbol.svg' : '/ds/logo.svg';
+  const src = variant === 'symbol' ? '/ds/logo-symbol.png' : '/ds/logo-lockup.png';
   return (
     <img
       src={src}
